@@ -67,8 +67,10 @@ public sealed class XmlPortConverter : ObjectConverterBase
         }
 
         var preferred = item.Properties["VariableName"]?.Trim() is { Length: > 0 } variable ? variable : nodeName;
-        var fallback = $"Node{line}";
-        var name = context.ReserveName(preferred.Length > 0 ? preferred : fallback, fallback, line);
+        // Node names repeat (LineNo under several tables); AL needs unique names, so a repeat becomes LineNo_2 and keeps
+        // its XML name through XmlName.
+        var fallback = preferred.Length > 0 ? preferred : $"Node{line}";
+        var name = context.ReserveName(fallback, fallback, line);
         var identifier = AlSyntax.Identifier(name);
         TriggerOwner owner;
         string header;

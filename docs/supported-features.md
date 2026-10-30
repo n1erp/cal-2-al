@@ -1,7 +1,3 @@
-# Supported features
-
-"Tested" means covered by an automated test in `tests/Cal2AL.Tests` (fixture + approved output in `tests/Cal2AL.Tests/Expected`, or a unit test). Nothing here claims parity with Txt2Al; see [known limitations](known-limitations.md) and the `compare` command for how to measure it.
-
 ## Input
 
 | Feature | Status |
@@ -44,7 +40,7 @@
 |---|---|
 | Every statement carried over; token-by-token preservation check; statement and DB-operation counts in = out | Tested (all fixtures) |
 | Brace comments → block comments (nested braces, `*/` inside) | Tested |
-| Date constants rewritten to AL format (MDY default, DMY option, century pivot 30) | Tested |
+| Date constants rewritten to AL format; day/month order detected per file (exports follow the exporting machine's locale), century pivot 30 | Tested, incl. 2 real fr-FR databases |
 | AL keywords used as identifiers quoted | Tested |
 | Attributes: External, Internal, Integration, Business, EventSubscriber (target resolved), TryFunction, test attributes, handler functions | Tested (fixture COD50010) |
 | DotNet variables → `DotNet.Package.al` with aliases; WithEvents → `trigger Var::Event` | Tested |
@@ -59,4 +55,4 @@
 | JSON report with per-object status, diagnostics and metrics | Tested (engine); CLI writes it by default |
 | Deterministic output | Tested |
 | CLI: convert, analyze, validate, inspect, compare; verbose/quiet; exit codes | Options parsing tested; commands exercised manually |
-| Comparison with reference output (equivalent / formatting / behavioural / missing) | Tested on synthetic AL; no real Txt2Al output in the repository |
+| Comparison with reference output (equivalent / formatting / behavioural / missing), pairing renamed elements by position | Tested; used on 9,704 real objects  |

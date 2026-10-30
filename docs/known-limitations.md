@@ -2,9 +2,12 @@
 
 These are known gaps. Each produces a diagnostic when it happens — none is silent.
 
-## Not verified against Txt2Al output
+## Comparison with Txt2Al
 
-Txt2Al (net472, Windows) cannot run in the environment where Cal2AL was built, so **no real Txt2Al output is included and no parity is claimed**. Use `tools/New-Txt2AlReference.ps1` on Windows to produce reference output from the same input, then `cal2al compare --cal2al <out> --reference <ref>`. Known *intended* differences: Cal2AL rewrites date constants, keeps code Txt2Al comments out or drops (unknown triggers become local procedures, unsupported properties are reported), converts safe delta code changes into extension triggers, and names controls deterministically.
+Cal2AL and Txt2Al were compared on two complete NAV 2016 (fr-FR) databases.
+Txt2Al ran under Mono on Linux with shims for two Windows API calls ([`tools/txt2al-on-linux`](../tools/txt2al-on-linux/README.md)),
+not on Windows, and on classic exports, which Txt2Al does not officially support. A comparison on new-syntax exports
+on Windows (`tools/New-Txt2AlReference.ps1`) has not been done.
 
 ## Not compiled with the AL compiler
 
@@ -30,4 +33,5 @@ Cal2AL checks its own output (re-lexing, re-parsing, token comparison) but does 
 * The C/AL parser is used for analysis; when it cannot parse a body (CAL0110) the rules that need the syntax tree (e.g. statement counts) are skipped for that body, but the tokens are still converted and verified.
 * Two-digit years are read with pivot 30 (`00–29` → 20xx, `30–99` → 19xx) and reported; check them.
 * `WITH` statements are kept (AL still accepts them with a warning on older runtimes; implicit `with` is an error from runtime 12 in some contexts) and reported (CAL3004/CAL3015).
-* `--date-order DayMonthYear` applies to the whole run; mixed exports must be converted separately.
+* Date order is detected per file (`--date-order Auto`). A file that mixes day-first and month-first constants gets the majority order and a CAL0005 warning; a file with only ambiguous constants and no telling object dates is read month-first.
+* `01010000D` (year 0, used by some NAV code as a minimum date) is not a valid calendar date, so Cal2AL keeps it unchanged and reports an error (CAL3017); decide how the code should express it.

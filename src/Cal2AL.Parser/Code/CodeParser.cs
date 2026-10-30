@@ -562,7 +562,8 @@ public sealed class CodeParser
             return new RangeExpression { FirstToken = first, LastToken = high.LastToken, High = high };
         }
 
-        var low = ParseAdditive();
+        // Set elements are full expressions: TRUE IN [A <> B, NOT (C OR D)] is valid C/AL.
+        var low = ParseExpression();
         if (Current.Kind == CodeTokenKind.DotDot)
         {
             var dots = Advance();

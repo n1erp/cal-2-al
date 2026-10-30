@@ -177,8 +177,11 @@ public sealed class MemberConverter
     public AlMethod ConvertEventAsProcedure(CalProcedure eventProcedure)
     {
         var name = AlSyntax.ToIdentifierText($"{eventProcedure.EventSource}_{eventProcedure.Name}");
-        context.Report(DiagnosticDescriptors.UnresolvedEventOwner,
-            $"Event trigger {eventProcedure.EventSource}::{eventProcedure.Name} belongs to no WithEvents variable or control add-in; its code was preserved as local procedure {name}().",
+        var isAutomation = eventProcedure.EventSource is { } source && context.AutomationVariables.Contains(source);
+        context.Report(isAutomation ? DiagnosticDescriptors.AutomationNotSupported : DiagnosticDescriptors.UnresolvedEventOwner,
+            isAutomation
+                ? $"Event trigger {eventProcedure.EventSource}::{eventProcedure.Name} belongs to an Automation (COM) variable, which AL does not support; its code was preserved as local procedure {name}()."
+                : $"Event trigger {eventProcedure.EventSource}::{eventProcedure.Name} belongs to no WithEvents variable or control add-in; its code was preserved as local procedure {name}().",
             eventProcedure.Position.Line, construct: $"EVENT {eventProcedure.EventSource}::{eventProcedure.Name}", original: eventProcedure.Body.Text);
         var method = new AlMethod { Kind = AlMethodKind.Procedure, Access = "local", Name = name };
         foreach (var p in eventProcedure.Parameters)

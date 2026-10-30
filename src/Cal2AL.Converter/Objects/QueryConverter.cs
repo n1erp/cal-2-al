@@ -46,6 +46,12 @@ public sealed class QueryConverter : ObjectConverterBase
         var name = item.GetPositional(3).Trim();
         var line = item.Position.Line;
         context.CurrentElement = $"{type} {name}";
+        if (name.Length == 0 && item.Properties["DataSource"] is { } source && !type.Equals("DataItem", StringComparison.OrdinalIgnoreCase))
+        {
+            // Unnamed columns are named after their source field, as C/SIDE shows them (Entry Point → Entry_Point).
+            name = AlSyntax.ToIdentifierText(AlSyntax.Unquote(source.Trim()));
+        }
+
         var reserved = context.ReserveName(name.Length > 0 ? name : $"{type}{id}", $"{type}{id}", line);
         var identifier = AlSyntax.Identifier(reserved);
 
@@ -90,12 +96,17 @@ public sealed class QueryConverter : ObjectConverterBase
         }
 
         var dataSource = item.Properties["DataSource"];
-        if (dataSource is null)
+        var isCount = string.Equals(item.Properties["Method"]?.Trim(), "Count", StringComparison.OrdinalIgnoreCase);
+        if (dataSource is null && !isCount)
         {
             ReportMissing(context, $"Query {keyword} '{reserved}' has no DataSource.", line);
         }
 
-        var column = new AlSection { Header = $"{keyword}({identifier}; {(dataSource is null ? "''" : AlSyntax.IdentifierFromSource(dataSource.Trim()))})" };
+        // A Count column counts rows and has no source field: column(Name) { Method = Count; }
+        var header = dataSource is null
+            ? (isCount ? $"{keyword}({identifier})" : $"{keyword}({identifier}; '')")
+            : $"{keyword}({identifier}; {AlSyntax.IdentifierFromSource(dataSource.Trim())})";
+        var column = new AlSection { Header = header };
         column.Properties.AddRange(properties.Convert(item, PropertyScope.QueryColumn, new PropertyContext
         {
             Path = $"{type} {reserved}",

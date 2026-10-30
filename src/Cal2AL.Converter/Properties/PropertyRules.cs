@@ -24,6 +24,9 @@ public enum ValueKind
     /// <summary>Written unchanged (numbers, expressions).</summary>
     Raw,
 
+    /// <summary>C/AL <c>[0;1;2]</c> list → AL <c>0, 1, 2</c> (OptionOrdinalValues).</summary>
+    NumberList,
+
     /// <summary>Enumeration value; spaces, dots, dashes and slashes are removed unless a map entry exists.</summary>
     Enum,
 
@@ -220,7 +223,7 @@ public static class PropertyRules
         Same("ExternalName", ValueKind.Text),
         Same("ExternalType", ValueKind.Text),
         E("ExternalAccess", "ExternalAccess"),
-        Same("OptionOrdinalValues", ValueKind.Raw),
+        Same("OptionOrdinalValues", ValueKind.NumberList),
         E("DataClassification", "DataClassification"),
         Same("Title", ValueKind.Boolean),
         Unsupported("AltSearchField", "AL has no alternative search field; lookups search all fields shown on the page."),
@@ -398,6 +401,7 @@ public static class PropertyRules
         Same("UseRequestPage", ValueKind.Boolean),
         Same("DefaultFieldsValidation", ValueKind.Boolean),
         E("FormatEvaluate", "FormatEvaluate", ("C/SIDE Format/Evaluate", "Legacy"), ("XML Format/Evaluate", "Xml")),
+        E("Format/Evaluate", "FormatEvaluate", ("C/SIDE Format/Evaluate", "Legacy"), ("XML Format/Evaluate", "Xml")),
         Same("DefaultNamespace", ValueKind.Text),
         Same("UseDefaultNamespace", ValueKind.Boolean),
         Same("Namespaces", ValueKind.Namespaces),

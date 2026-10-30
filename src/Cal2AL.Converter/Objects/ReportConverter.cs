@@ -42,7 +42,7 @@ public sealed class ReportConverter : ObjectConverterBase
             var fileName = context.Run.LayoutFileName(obj, ".docx");
             try
             {
-                var bytes = System.Convert.FromBase64String(string.Concat(obj.WordLayout.Select(l => l.Trim())));
+                var bytes = DecodeLayout(obj.WordLayout);
                 al.Properties.Add(new AlProperty("WordLayout", AlSyntax.String(context.Run.LayoutReference(fileName))));
                 output.Files.Add(new AuxiliaryFile(fileName, bytes, AuxiliaryFileKind.WordLayout));
             }
@@ -99,6 +99,21 @@ public sealed class ReportConverter : ObjectConverterBase
         AddCode(context, members, al);
         al.Procedures.AddRange(orphans);
         return al;
+    }
+
+    /// <summary>
+    /// C/SIDE base64-encodes the Word layout in chunks, one per line, each with its own padding
+    /// (<c>…hg==</c> in the middle of the block), so the lines are decoded one by one.
+    /// </summary>
+    internal static byte[] DecodeLayout(IEnumerable<string> lines)
+    {
+        var result = new List<byte>();
+        foreach (var line in lines.Select(l => l.Trim()).Where(l => l.Length > 0))
+        {
+            result.AddRange(System.Convert.FromBase64String(line));
+        }
+
+        return [.. result];
     }
 
     private static string RdlcText(CalObject obj)

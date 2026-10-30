@@ -76,10 +76,33 @@ public static class AlComparer
         var a = (cal2al?.Entries ?? []).ToDictionary(e => e.Path, StringComparer.OrdinalIgnoreCase);
         var b = (reference?.Entries ?? []).ToDictionary(e => e.Path, StringComparer.OrdinalIgnoreCase);
 
-        foreach (var path in a.Keys.Union(b.Keys, StringComparer.OrdinalIgnoreCase))
+        // Pass 1 pairs entries by name path; pass 2 pairs the leftovers by position path, because the two converters
+        // may give the same control, action or data item different names.
+        var pairs = new List<(string Path, OutlineEntry? Mine, OutlineEntry? Reference)>();
+        foreach (var path in a.Keys.Intersect(b.Keys, StringComparer.OrdinalIgnoreCase))
         {
-            a.TryGetValue(path, out var mineEntry);
-            b.TryGetValue(path, out var referenceEntry);
+            pairs.Add((path, a[path], b[path]));
+        }
+
+        var leftA = a.Values.Where(e => !b.ContainsKey(e.Path)).ToList();
+        var leftB = b.Values.Where(e => !a.ContainsKey(e.Path)).GroupBy(e => e.AltPath, StringComparer.OrdinalIgnoreCase)
+            .ToDictionary(g => g.Key, g => g.First(), StringComparer.OrdinalIgnoreCase);
+        foreach (var entry in leftA)
+        {
+            if (leftB.Remove(entry.AltPath, out var match))
+            {
+                pairs.Add((entry.Path == match.Path ? entry.Path : $"{entry.Path} ~ {match.Path}", entry, match));
+            }
+            else
+            {
+                pairs.Add((entry.Path, entry, null));
+            }
+        }
+
+        pairs.AddRange(leftB.Values.Select(e => (e.Path, (OutlineEntry?)null, (OutlineEntry?)e)));
+
+        foreach (var (path, mineEntry, referenceEntry) in pairs)
+        {
             var kind = (mineEntry ?? referenceEntry)!.Kind.ToString();
             var category = (mineEntry, referenceEntry) switch
             {

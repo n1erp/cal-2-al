@@ -102,8 +102,8 @@ public sealed class CliOptions
 
     public Option<CalDateOrder> DateOrder { get; } = new("--date-order")
     {
-        Description = "Order of day and month in C/AL date constants: MonthDayYear (documented C/AL format) or DayMonthYear.",
-        DefaultValueFactory = _ => CalDateOrder.MonthDayYear,
+        Description = "Order of day and month in C/AL date constants: Auto (detect per file), MonthDayYear or DayMonthYear.",
+        DefaultValueFactory = _ => CalDateOrder.Auto,
     };
 
     public Option<bool> ScopeAttributes { get; } = new("--scope-attributes")

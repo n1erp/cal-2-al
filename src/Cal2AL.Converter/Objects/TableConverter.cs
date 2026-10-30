@@ -185,6 +185,16 @@ public sealed partial class TableConverter : ObjectConverterBase
         {
             var fields = item.GetPositional(1);
             context.CurrentElement = $"Key {fields.Trim()}";
+            if (fields.Trim().Length == 0)
+            {
+                // C/SIDE exports placeholder rows such as "{ No ; }": a disabled key without fields. AL cannot declare
+                // a key without fields, and there is nothing to carry over.
+                context.Report(DiagnosticDescriptors.DisabledElementKept,
+                    "A key without fields (a disabled C/SIDE placeholder) was not emitted; AL keys need at least one field.",
+                    item.Position.Line, construct: "KEYS");
+                continue;
+            }
+
             var key = new AlSection { Header = $"key(Key{index}; {IdentifierList(fields)})" };
             if (item.GetPositional(0).Trim().Equals("No", StringComparison.OrdinalIgnoreCase))
             {

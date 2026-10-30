@@ -11,7 +11,7 @@ namespace Cal2AL.Converter.Code;
 /// tokens in place, so formatting, comments and every statement are kept. Only these rewrites are made:
 /// <list type="bullet">
 /// <item><c>{ … }</c> comments become <c>/* … */</c>;</item>
-/// <item>date constants change from C/AL <c>MMDDYY[YY]D</c> to AL <c>yyyymmddD</c>;</item>
+/// <item>date constants change from the export's regional order (<c>MMDDYY[YY]D</c> or <c>DDMMYY[YY]D</c>) to AL <c>yyyymmddD</c>;</item>
 /// <item>identifiers that are keywords in AL are quoted.</item>
 /// </list>
 /// Afterwards the output is re-parsed as AL and compared token by token with the original; any other difference
@@ -120,13 +120,15 @@ public sealed class BodyConverter(ObjectContext context)
         return "/*" + inner + "*/";
     }
 
+    private static string Format(CalDateOrder order) => order == CalDateOrder.DayMonthYear ? "DDMMYY[YY]D" : "MMDDYY[YY]D";
+
     private string ConvertDate(CodeToken token, string member)
     {
-        var order = context.Options.CalDateOrder;
+        var order = context.DateOrder;
         if (!DateLiteral.TryParseCal(token.Text, order, out var value))
         {
             context.Report(DiagnosticDescriptors.DateConstant,
-                $"'{token.Text}' is not a valid C/AL date constant (MMDDYY[YY]D); it was emitted unchanged and will not compile in AL.",
+                $"'{token.Text}' is not a valid date when read as {Format(order)}; it was emitted unchanged and will not compile in AL.",
                 token.Line, construct: token.Text, member: member, severity: DiagnosticSeverity.Error,
                 resolution: "Write the date as an AL constant (yyyymmddD).");
             return token.Text;
@@ -139,7 +141,7 @@ public sealed class BodyConverter(ObjectContext context)
 
         var converted = DateLiteral.ToAl(value);
         context.Report(DiagnosticDescriptors.DateConstant,
-            $"Date constant {token.Text} ({value.Date:yyyy-MM-dd}) was rewritten as {converted}: C/AL writes dates MMDDYY[YY]D, AL writes yyyymmddD."
+            $"Date constant {token.Text} ({value.Date:yyyy-MM-dd}) was rewritten as {converted}: the export writes dates {Format(order)}, AL writes yyyymmddD."
             + (value.TwoDigitYear ? $" The two-digit year was read as {value.Date.Year} (00–{DateLiteral.CenturyPivot - 1} → 20xx)." : string.Empty),
             token.Line, construct: token.Text, member: member,
             severity: value.TwoDigitYear ? DiagnosticSeverity.Warning : DiagnosticSeverity.Info);
@@ -149,7 +151,7 @@ public sealed class BodyConverter(ObjectContext context)
     private void Verify(List<CodeToken> original, string output, int firstLine, string member, bool originalParsed)
     {
         var outputTokens = CodeLexer.Tokenize(output, CodeLanguage.AL, firstLine);
-        var difference = TokenStreamComparer.FindDifference(original, outputTokens, context.Options.CalDateOrder);
+        var difference = TokenStreamComparer.FindDifference(original, outputTokens, context.DateOrder);
         if (difference is not null)
         {
             context.Report(DiagnosticDescriptors.PreservationCheckFailed,

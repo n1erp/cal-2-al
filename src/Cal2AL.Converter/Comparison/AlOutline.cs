@@ -19,6 +19,12 @@ public enum OutlineEntryKind
 /// </summary>
 public sealed record OutlineEntry(string Path, OutlineEntryKind Kind, IReadOnlyList<CodeToken> Tokens, int Line)
 {
+    /// <summary>
+    /// The same location with every element identified by keyword and position among its siblings
+    /// (<c>dataset/dataitem[1]/column[3]</c>), used to pair elements that the two converters named differently.
+    /// </summary>
+    public string AltPath { get; init; } = Path;
+
     /// <summary>The tokens as written (single spaces between tokens).</summary>
     public string Text => string.Join(" ", Tokens.Select(t => t.Text));
 }
@@ -75,16 +81,26 @@ public static class AlOutlineReader
             var outline = new AlOutline { Kind = kind, Id = id, Name = name, File = file };
             outline.Entries.Add(new OutlineEntry("(object)", OutlineEntryKind.Object, tokens.GetRange(start, reader.Position - start), tokens[start].Line));
             reader.Next(); // {
-            ReadBlock(reader, outline, string.Empty);
+            ReadBlock(reader, outline, string.Empty, string.Empty);
             result.Add(outline);
         }
 
         return result;
     }
 
-    private static void ReadBlock(Cursor reader, AlOutline outline, string path)
+    private static void ReadBlock(Cursor reader, AlOutline outline, string path, string altPath)
     {
         var keys = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+        var ordinals = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+
+        string Join(string parent, string key) => parent.Length == 0 ? key : $"{parent}/{key}";
+
+        string Ordinal(string keyword)
+        {
+            var n = ordinals.TryGetValue(keyword, out var count) ? count + 1 : 1;
+            ordinals[keyword] = n;
+            return $"{keyword.ToLowerInvariant()}[{n.ToString(CultureInfo.InvariantCulture)}]";
+        }
         var attributes = new List<CodeToken>();
         var inVar = false;
 
@@ -95,8 +111,15 @@ public static class AlOutlineReader
             return n == 1 ? key : $"{key}#{n.ToString(CultureInfo.InvariantCulture)}";
         }
 
-        void Add(string key, OutlineEntryKind kind, List<CodeToken> tokens) =>
-            outline.Entries.Add(new OutlineEntry(Unique(path.Length == 0 ? key : $"{path}/{key}"), kind, tokens, tokens.Count > 0 ? tokens[0].Line : 0));
+        void Add(string key, OutlineEntryKind kind, List<CodeToken> tokens, string? altKey = null)
+        {
+            var unique = Unique(Join(path, key));
+            var suffix = unique[Join(path, key).Length..];
+            outline.Entries.Add(new OutlineEntry(unique, kind, tokens, tokens.Count > 0 ? tokens[0].Line : 0)
+            {
+                AltPath = Join(altPath, (altKey ?? key) + suffix),
+            });
+        }
 
         while (!reader.AtEnd)
         {
@@ -171,16 +194,18 @@ public static class AlOutlineReader
                 header.AddRange(reader.ReadBalanced(CodeTokenKind.OpenParen, CodeTokenKind.CloseParen));
                 var firstArgument = header.Skip(2).TakeWhile(t => t.Kind is not (CodeTokenKind.Semicolon or CodeTokenKind.CloseParen)).Select(Unquote);
                 var key = $"{token.Text.ToLowerInvariant()}({string.Concat(firstArgument).ToLowerInvariant()})";
+                var altKey = Ordinal(token.Text);
                 if (reader.IsOpenBrace)
                 {
                     reader.Next();
-                    var childPath = Unique(path.Length == 0 ? key : $"{path}/{key}");
-                    outline.Entries.Add(new OutlineEntry(childPath, OutlineEntryKind.Element, header, token.Line));
-                    ReadBlock(reader, outline, childPath);
+                    var childPath = Unique(Join(path, key));
+                    var childAlt = Join(altPath, altKey);
+                    outline.Entries.Add(new OutlineEntry(childPath, OutlineEntryKind.Element, header, token.Line) { AltPath = childAlt });
+                    ReadBlock(reader, outline, childPath, childAlt);
                 }
                 else
                 {
-                    Add(key, OutlineEntryKind.Element, header);
+                    Add(key, OutlineEntryKind.Element, header, altKey);
                 }
 
                 continue;
@@ -191,8 +216,8 @@ public static class AlOutlineReader
                 inVar = false;
                 reader.Next();
                 reader.Next();
-                var childPath = Unique(path.Length == 0 ? token.Text.ToLowerInvariant() : $"{path}/{token.Text.ToLowerInvariant()}");
-                ReadBlock(reader, outline, childPath);
+                var childPath = Unique(Join(path, token.Text.ToLowerInvariant()));
+                ReadBlock(reader, outline, childPath, Join(altPath, token.Text.ToLowerInvariant() + childPath[Join(path, token.Text.ToLowerInvariant()).Length..]));
                 continue;
             }
 

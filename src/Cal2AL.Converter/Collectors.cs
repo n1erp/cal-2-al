@@ -55,6 +55,9 @@ public sealed partial class DotNetCollector(string aliasPrefix = "")
     private readonly HashSet<string> aliases = new(StringComparer.OrdinalIgnoreCase);
     private readonly Lock gate = new();
 
+    /// <summary>Public key tokens of .NET Framework assemblies (ECMA and Microsoft).</summary>
+    private static readonly HashSet<string> FrameworkTokens = new(StringComparer.OrdinalIgnoreCase) { "b77a5c561934e089", "b03f5f7f11d50a3a" };
+
     // 'mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089'.System.String
     [GeneratedRegex(@"^'(?<assembly>[^']*)'\.(?<type>.+)$")]
     private static partial Regex QualifiedNameRegex();
@@ -76,7 +79,7 @@ public sealed partial class DotNetCollector(string aliasPrefix = "")
         {
             lock (gate)
             {
-                return byQualifiedName.Values.ToArray();
+                return byQualifiedName.Values.Distinct().ToArray(); // unified framework types share one declaration
             }
         }
     }
@@ -101,6 +104,28 @@ public sealed partial class DotNetCollector(string aliasPrefix = "")
             string? Part(string key) => parts.Skip(1).Select(p => p.Split('=', 2)).FirstOrDefault(kv => kv.Length == 2 && kv[0].Equals(key, StringComparison.OrdinalIgnoreCase))?[1];
 
             var typeName = m.Groups["type"].Value;
+            var version = Part("Version");
+            var token = Part("PublicKeyToken");
+
+            // .NET Framework assemblies are unified by the runtime (mscorlib 2.0 and 4.0 load the same 4.0 assembly), so
+            // one declaration per type is enough; NAV 2009–2013 objects often still reference the 2.0 versions.
+            if (token is not null && FrameworkTokens.Contains(token) && version is not null
+                && (version.StartsWith("2.0.", StringComparison.Ordinal) || version.StartsWith("4.0.", StringComparison.Ordinal)))
+            {
+                var unified = byQualifiedName.Values.FirstOrDefault(d =>
+                    d.TypeName == typeName && string.Equals(d.AssemblyName, parts[0], StringComparison.OrdinalIgnoreCase)
+                    && string.Equals(d.PublicKeyToken, token, StringComparison.OrdinalIgnoreCase));
+                if (unified is not null)
+                {
+                    byQualifiedName[assemblyQualifiedName] = unified;
+                    return AlSyntax.Identifier(unified.Alias);
+                }
+
+                if (version.StartsWith("2.0.", StringComparison.Ordinal))
+                {
+                    version = "4.0.0.0";
+                }
+            }
             var shortName = typeName.Split('.', '+').Last();
             var tick = shortName.IndexOf('`');
             if (tick > 0)
@@ -117,7 +142,7 @@ public sealed partial class DotNetCollector(string aliasPrefix = "")
                 n++;
             }
 
-            var decl = new DotNetTypeDeclaration(parts[0], Part("Version"), Part("Culture"), Part("PublicKeyToken"), typeName, alias);
+            var decl = new DotNetTypeDeclaration(parts[0], version, Part("Culture"), token, typeName, alias);
             byQualifiedName[assemblyQualifiedName] = decl;
             return AlSyntax.Identifier(alias);
         }

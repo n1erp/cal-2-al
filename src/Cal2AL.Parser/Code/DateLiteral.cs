@@ -8,8 +8,11 @@ public enum CalDateOrder
     /// <summary>MMDDYY[YY]D — the documented C/AL format.</summary>
     MonthDayYear,
 
-    /// <summary>DDMMYY[YY]D — for code written on machines where C/SIDE interpreted constants day-first.</summary>
+    /// <summary>DDMMYY[YY]D — C/SIDE writes constants in the export machine's regional order (e.g. fr-FR, de-DE).</summary>
     DayMonthYear,
+
+    /// <summary>Detect per source file from the constants and the object dates (resolved before conversion; treated as month-first if it ever reaches the parser).</summary>
+    Auto,
 }
 
 /// <summary>Result of reading a date constant.</summary>
@@ -55,7 +58,7 @@ public static class DateLiteral
             year += year < CenturyPivot ? 2000 : 1900;
         }
 
-        var (month, day) = order == CalDateOrder.MonthDayYear ? (first, second) : (second, first);
+        var (month, day) = order == CalDateOrder.DayMonthYear ? (second, first) : (first, second);
         if (!IsValid(year, month, day))
         {
             return false;

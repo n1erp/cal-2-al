@@ -6,6 +6,7 @@ using Cal2AL.Core.Model;
 using Cal2AL.Diagnostics;
 using Cal2AL.Generator;
 using Cal2AL.Generator.Model;
+using Cal2AL.Parser.Code;
 using Cal2AL.Parser.Txt;
 using Diagnostic = Cal2AL.Diagnostics.Diagnostic;
 
@@ -98,6 +99,7 @@ public sealed class ConversionEngine(IEnumerable<IObjectConverter> converters) :
             .OrderBy(o => TypeOrder(o.Type)).ThenBy(o => o.Id).ThenBy(o => o.SourceFile, StringComparer.Ordinal)
             .ToList();
         var runContext = new RunContext(request.Options, SymbolTable.Build(objects));
+        var dateOrders = ResolveDateOrders(objects, request.Options, report);
 
         for (var i = 0; i < objects.Count; i++)
         {
@@ -106,7 +108,7 @@ public sealed class ConversionEngine(IEnumerable<IObjectConverter> converters) :
             progress?.Report(new ConversionProgress(request.Mode == RunMode.Validate ? "Validating" : "Converting", i + 1, objects.Count, obj.DisplayName));
             var converted = request.Mode == RunMode.Validate
                 ? new ConvertedObject(obj, ValidateOnly(obj), null, null)
-                : ConvertOne(obj, runContext, request, layout, sink, report);
+                : ConvertOne(obj, runContext, dateOrders, request, layout, sink, report);
             run.Objects.Add(converted);
             report.Objects.Add(converted.Result);
         }
@@ -252,7 +254,29 @@ public sealed class ConversionEngine(IEnumerable<IObjectConverter> converters) :
         }
     }
 
-    private ConvertedObject ConvertOne(CalObject obj, RunContext runContext, ConversionRequest request, OutputLayout layout, IOutputSink? sink, ConversionReport report)
+    /// <summary>Resolves <see cref="CalDateOrder.Auto"/> per source file (exports follow the exporting machine's locale).</summary>
+    private static Dictionary<string, CalDateOrder> ResolveDateOrders(List<CalObject> objects, ConversionOptions options, ConversionReport report)
+    {
+        var result = new Dictionary<string, CalDateOrder>(StringComparer.Ordinal);
+        if (options.CalDateOrder != CalDateOrder.Auto)
+        {
+            return result;
+        }
+
+        foreach (var file in objects.GroupBy(o => o.SourceFile, StringComparer.Ordinal))
+        {
+            var detected = DateOrderDetector.Detect(file);
+            result[file.Key] = detected.Order;
+            report.RunDiagnostics.Add(DiagnosticDescriptors.DateOrderDetected.Create(
+                $"Date constants in '{Path.GetFileName(file.Key)}' are read as {detected.Order}: {detected.Evidence}.",
+                new DiagnosticLocation { File = file.Key },
+                severity: detected.Conflicting ? DiagnosticSeverity.Warning : null));
+        }
+
+        return result;
+    }
+
+    private ConvertedObject ConvertOne(CalObject obj, RunContext runContext, Dictionary<string, CalDateOrder> dateOrders, ConversionRequest request, OutputLayout layout, IOutputSink? sink, ConversionReport report)
     {
         var result = NewResult(obj);
         if (!request.Options.ShouldConvert(obj.Type, obj.Id))
@@ -272,6 +296,10 @@ public sealed class ConversionEngine(IEnumerable<IObjectConverter> converters) :
         }
 
         var context = new ObjectContext(runContext, obj);
+        if (dateOrders.TryGetValue(obj.SourceFile, out var dateOrder))
+        {
+            context.DateOrder = dateOrder;
+        }
         ObjectConversionOutput output;
         try
         {

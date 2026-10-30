@@ -202,6 +202,9 @@ public sealed partial class PropertyConverter
             case ValueKind.Raw:
                 return flat;
 
+            case ValueKind.NumberList:
+                return string.Join(", ", flat.Trim('[', ']').Split([';', ','], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries));
+
             case ValueKind.Enum:
                 return ConvertEnum(flat, rule);
 
@@ -253,6 +256,12 @@ public sealed partial class PropertyConverter
 
             case ValueKind.InitValue:
             case ValueKind.TypedValue:
+                // InitValue=[ ] selects the blank first member of an option (" ,Open,Closed"); trimming would lose it.
+                if (property.Value.Length > 0 && string.IsNullOrWhiteSpace(property.Value))
+                {
+                    return IsType(pc.FieldDataType, "Option") ? "\" \"" : AlSyntax.String(property.Value);
+                }
+
                 return ConvertTypedValue(property, flat, pc.FieldDataType, line);
 
             case ValueKind.ValuesAllowed:

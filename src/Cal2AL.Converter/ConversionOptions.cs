@@ -63,8 +63,11 @@ public sealed record ConversionOptions
     /// </summary>
     public bool VerifyCodePreservation { get; init; } = true;
 
-    /// <summary>How day and month are ordered in C/AL date constants (documented C/AL format: month first).</summary>
-    public CalDateOrder CalDateOrder { get; init; } = CalDateOrder.MonthDayYear;
+    /// <summary>
+    /// How day and month are ordered in C/AL date constants. C/SIDE writes them in the regional order of the machine
+    /// that exported the objects (a French export contains <c>31129999D</c>), so the default detects it per file.
+    /// </summary>
+    public CalDateOrder CalDateOrder { get; init; } = CalDateOrder.Auto;
 
     /// <summary>Folder (relative to the output root) for the generated XLIFF translation files.</summary>
     public string TranslationFolder { get; init; } = "Translations";

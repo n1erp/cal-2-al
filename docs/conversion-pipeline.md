@@ -7,7 +7,8 @@ source (file or folder)
   │  3. Split      at lines starting with "OBJECT " — each object is parsed on its own
   │  4. Parse      TXT structure → CalObject (properties, sections, elements, triggers, CODE)
   │                failure → FailedObject (CAL0101, line/column) + artifact; other objects continue
-  │  5. Symbols    names, table fields and page source tables of all parsed objects
+  │  5. Symbols    names, table fields and page source tables of all parsed objects;
+  │                date constant order detected per file (CAL0005)
   │  6. Convert    one object at a time, ordered by type then ID
   │                ├─ declarations prepared (names to quote in code)
   │                ├─ properties  (rule table per scope → AL property / label / diagnostic)
@@ -29,7 +30,7 @@ Every trigger and procedure body goes through `BodyConverter`:
 2. **Parse** (`CodeParser`, recursive descent) into a syntax tree. The tree is used for metrics (statements, database operations) and for rule checks (`CodeRules`: unsupported functions, classic FORM/DATAPORT references, Automation CREATE, File methods, …). If the body cannot be parsed, CAL0110 is reported and the token stream is still converted — code is never dropped because of a parse error.
 3. **Rewrite** only what must change:
    * `{ … }` comments → `/* … */` (a `*/` inside is split and reported, CAL3014);
-   * date constants `MMDDYY[YY]D` → `yyyymmddD` (CAL3017);
+   * date constants in the export's order (`MMDDYY[YY]D` or `DDMMYY[YY]D`) → `yyyymmddD` (CAL3017);
    * identifiers that are AL keywords and were declared in the object → quoted (CAL3007).
 4. **Verify** (`VerifyCodePreservation`, on by default): the output is lexed as AL and compared token by token with the input after normalising the intended rewrites (comments ignored, dates compared by value, quotes on identifiers ignored). Any other difference is an error (CAL3009). The output is parsed again and its statement and database-operation counts are stored next to the input counts in the report.
 

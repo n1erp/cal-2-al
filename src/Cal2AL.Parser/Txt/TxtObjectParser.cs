@@ -957,7 +957,8 @@ public sealed partial class TxtObjectParser
             }
         }
 
-        var name = cursor.Peek() == ':' ? string.Empty : ReadName();
+        // An unnamed return value is exported as "@1000 : Text[80]".
+        var name = cursor.Peek() is ':' or '@' ? string.Empty : ReadName();
         var id = ReadOptionalId();
         cursor.SkipWhitespace();
         cursor.Expect(':');
@@ -1126,9 +1127,15 @@ public sealed partial class TxtObjectParser
 
             case "TEXTCONST":
             {
-                cursor.SkipSpaces();
+                // Long text constants are exported with the strings on the following lines:
+                //   Name@1 : TextConst
+                //     '@@@={Locked}',
+                //     'ENU=...';
+                var beforeValue = cursor.Save();
+                cursor.SkipWhitespace();
                 if (cursor.Peek() != '\'')
                 {
+                    cursor.Restore(beforeValue);
                     return new CalDataType { Name = word, TextConstValue = string.Empty };
                 }
 

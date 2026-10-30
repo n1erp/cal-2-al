@@ -1,3 +1,4 @@
+using Cal2AL.Parser.Code;
 using Cal2AL.Converter.Symbols;
 using Cal2AL.Core.Model;
 using Cal2AL.Diagnostics;
@@ -34,6 +35,9 @@ public sealed class ObjectContext(RunContext run, CalObject obj)
     public RunContext Run { get; } = run;
     public CalObject Object { get; } = obj;
     public ConversionOptions Options => Run.Options;
+
+    /// <summary>Day/month order of date constants in this object's source file (resolved from <see cref="ConversionOptions.CalDateOrder"/>).</summary>
+    public CalDateOrder DateOrder { get; set; } = run.Options.CalDateOrder == CalDateOrder.Auto ? CalDateOrder.MonthDayYear : run.Options.CalDateOrder;
     public SymbolTable Symbols => Run.Symbols;
     public List<Diagnostic> Diagnostics { get; } = [];
 

@@ -26,7 +26,7 @@ cal2al convert --source <file|folder> --target <folder> [options]
 | `--extension-start-id` | `70000000` | First ID for table/page extensions |
 | `--runtime` | `12.0` | Target AL runtime |
 | `--encoding` | `850` | Code page for files that are not UTF-8 |
-| `--date-order` | `MonthDayYear` | Day/month order of C/AL date constants (`DayMonthYear` for day-first exports) |
+| `--date-order` | `Auto` | Day/month order of C/AL date constants. C/SIDE writes them in the exporting machine's regional order; `Auto` detects it per file (reported as CAL0005). Force with `MonthDayYear` or `DayMonthYear` |
 | `--scope-attributes` | off | Add `[Scope('OnPrem')]` like Txt2Al |
 | `--no-metadata` | off | Omit the Version List/Date/Time header comment |
 | `--no-translations` | off | Do not write XLIFF files |
@@ -61,7 +61,7 @@ cal2al inspect --diagnostics                          # catalogue of diagnostic 
 cal2al compare --cal2al <folder> --reference <folder> [--report <file>] [--show-equivalent] [-v]
 ```
 
-Pairs objects by type and ID and classifies every property, variable, method and element as `Equivalent`, `Formatting`, `Behavioral`, `MissingInCal2AL` or `MissingInReference`. Exit code 1 when anything is `Behavioral` or `MissingInCal2AL`. Use `tools/New-Txt2AlReference.ps1` to produce the reference with Txt2Al.
+Pairs objects by type and ID and classifies every property, variable, method and element as `Equivalent`, `Formatting`, `Behavioral`, `MissingInCal2AL` or `MissingInReference`. Exit code 1 when anything is `Behavioral` or `MissingInCal2AL`. Elements that the two tools named differently are paired by position (shown as `name ~ name`). Use `tools/New-Txt2AlReference.ps1` (Windows) or `tools/txt2al-on-linux/run-txt2al.sh` to produce the reference with Txt2Al.
 
 ## Exit codes
 

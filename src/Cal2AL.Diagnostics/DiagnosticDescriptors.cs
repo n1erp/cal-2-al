@@ -49,6 +49,10 @@ public static class DiagnosticDescriptors
         "CAL0003", "No input files found", DiagnosticSeverity.Warning, DiagnosticCategory.Input,
         "Point --source at a folder that contains .txt or .delta exports.");
 
+    public static readonly DiagnosticDescriptor DateOrderDetected = new(
+        "CAL0005", "Date constant order detected", DiagnosticSeverity.Info, DiagnosticCategory.Input,
+        "If the detection is wrong, pass --date-order MonthDayYear or DayMonthYear.");
+
     public static readonly DiagnosticDescriptor NotAnObjectFile = new(
         "CAL0004", "File contains no C/AL objects", DiagnosticSeverity.Warning, DiagnosticCategory.Input,
         "The file does not start with an OBJECT declaration. Make sure it is a C/SIDE text export.");

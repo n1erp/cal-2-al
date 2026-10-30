@@ -62,6 +62,7 @@ public sealed class PageBuilder(ObjectContext context, MemberConverter members, 
             layout.Children.Add(BuildControl(root));
         }
 
+        ResolveProviders(layout);
         return layout;
     }
 
@@ -104,6 +105,39 @@ public sealed class PageBuilder(ObjectContext context, MemberConverter members, 
         }
 
         return section;
+    }
+
+    /// <summary>AL names of controls by C/AL control ID, for ProviderID references.</summary>
+    private readonly Dictionary<string, string> controlNamesById = new(StringComparer.Ordinal);
+
+    /// <summary>
+    /// C/AL <c>ProviderID=1120022</c> refers to another part by control ID; AL <c>Provider</c> needs that part's name,
+    /// which is only known once every control has been named.
+    /// </summary>
+    private void ResolveProviders(AlSection section)
+    {
+        for (var i = 0; i < section.Properties.Count; i++)
+        {
+            var property = section.Properties[i];
+            if (property.Name == "Provider")
+            {
+                var id = AlSyntax.Unquote(property.Value.Trim());
+                if (controlNamesById.TryGetValue(id, out var name))
+                {
+                    section.Properties[i] = property with { Value = AlSyntax.Identifier(name) };
+                }
+                else
+                {
+                    context.Report(DiagnosticDescriptors.UnresolvedObjectReference,
+                        $"ProviderID {id} does not match a control of this page; the value was kept.", construct: "ProviderID", severity: DiagnosticSeverity.Warning);
+                }
+            }
+        }
+
+        foreach (var child in section.Children)
+        {
+            ResolveProviders(child);
+        }
     }
 
     /// <summary>The AL name most recently given to a control or action (areas have none).</summary>
@@ -198,6 +232,11 @@ public sealed class PageBuilder(ObjectContext context, MemberConverter members, 
         }
 
         var alName = lastReservedName;
+        if (alName is not null)
+        {
+            controlNamesById[id] = alName;
+        }
+
         var element = alName is null ? $"Control {id}" : $"Control {id} {alName}";
         context.CurrentElement = element;
         int? targetTable = null;
