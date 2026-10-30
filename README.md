@@ -8,76 +8,158 @@
 [![Dynamics NAV](https://img.shields.io/badge/Dynamics-NAV%20C%2FAL-00A1F1)](https://learn.microsoft.com/dynamics-nav/)
 [![Business Central](https://img.shields.io/badge/Business%20Central-AL-00A1F1)](https://learn.microsoft.com/dynamics365/business-central/dev-itpro/developer/devenv-programming-in-al)
 
-Cal2AL converts Dynamics NAV C/AL objects exported as text (`.txt`, `.delta`) into AL for Business Central. It is a clean-room re-implementation of the behaviour of Microsoft's Txt2Al with these goals:
+Cal2AL converts Dynamics NAV C/AL objects exported as text (`.txt`, `.delta`) into AL for Business Central. It is a clean-room re-implementation of the behaviour of Microsoft's Txt2Al.
 
-* **No silent loss.** Code is carried over token for token and verified; anything that cannot be converted produces a diagnostic with object, member, location, construct, reason and suggested resolution, and the original text is saved as a migration artifact.
-* **Correct AL where Txt2Al is wrong or incomplete:** date constants rewritten to AL format, classic and new-syntax exports, safe delta code changes turned into extension triggers, deterministic naming, one broken object never loses a whole file.
-* **Evidence.** Per-object statement and database-operation counts (input vs output), JSON report, approved-output tests, and a `compare` command to measure differences against Txt2Al output.
+## Installation
 
-## Quick start
+Download the latest Cal2AL release from GitHub:
 
-Requires the .NET 10 SDK.
+**Windows (x64)**
+
+[Download Cal2AL for Windows](https://github.com/n1erp/cal-2-al/releases/download/0.1.0/cal2al-0.1.0-win-x64.zip)
+
+1. Extract the ZIP archive.
+2. Open PowerShell in the extracted folder.
+3. Run `.\cal2al.exe --help` to get started.
+
+**Linux (x64)**
+
+[Download Cal2AL for Linux](https://github.com/n1erp/cal-2-al/releases/download/0.1.0/cal2al-0.1.0-linux-x64.tar.gz)
+
+1. Download and extract the archive.
+2. Make the executable runnable if necessary:
+
+   ```bash
+   chmod +x cal2al
+   ```
+
+3. Run `./cal2al --help` to get started.
+
+**Requirements:** Cal2AL is distributed as a self-contained executable. No separate .NET installation is required.
+
+For future versions, visit the [GitHub Releases page](https://github.com/n1erp/cal-2-al/releases).
+
+## Quick Start
+
+Cal2AL provides several commands to help developers inspect, validate, analyze, convert, and compare NAV objects.
+
+### A complete command-line workflow
+
+Cal2AL is designed for developers and migration teams who want full control over the conversion process.
+
+**Convert objects**
+
+Windows:
+```powershell
+.\cal2al.exe convert --source C:\Export --target C:\AL\MyApp
+```
+
+Linux:
+```bash
+./cal2al convert --source /home/user/Export --target /home/user/AL/MyApp
+```
+
+**Analyze before conversion**
+
+Windows:
+```powershell
+.\cal2al.exe analyze --source C:\Export --verbose
+```
+
+Linux:
+```bash
+./cal2al analyze --source /home/user/Export --verbose
+```
+
+**Validate source objects**
+
+Windows:
+```powershell
+.\cal2al.exe validate --source C:\Export
+```
+
+Linux:
+```bash
+./cal2al validate --source /home/user/Export
+```
+
+**Inspect an individual object**
+
+Windows:
+```powershell
+.\cal2al.exe inspect --source C:\Export --object Codeunit:80 --al
+```
+
+Linux:
+```bash
+./cal2al inspect --source /home/user/Export --object Codeunit:80 --al
+```
+
+**Generate a JSON migration report**
+
+Windows:
+```powershell
+.\cal2al.exe convert `
+    --source C:\Export `
+    --target C:\AL\MyApp `
+    --report C:\AL\report.json
+```
+
+Linux:
+```bash
+./cal2al convert \
+    --source /home/user/Export \
+    --target /home/user/AL/MyApp \
+    --report /home/user/AL/report.json
+```
+
+The generated output includes AL files, extracted layouts, translations, generated supporting objects, migration reports, and original source artifacts for unsupported constructs.
+
+For all available options and arguments:
 
 ```powershell
-dotnet build Cal2AL.slnx
-dotnet run --project cal2al/cal2al.csproj -- convert --source C:\Exports --target C:\AL\MyApp
-dotnet test Cal2AL.slnx
+.\cal2al.exe --help
 ```
 
-Publish a single executable: `dotnet publish cal2al/cal2al.csproj -c Release -r win-x64 --self-contained -p:PublishSingleFile=true`.
-
-```text
-cal2al convert  -s <src> -t <out>     convert and write an AL project
-cal2al analyze  -s <src>              dry run: diagnostics + statistics
-cal2al validate -s <src>              parse-only check of the input
-cal2al inspect  -s <src> [-o Table:18 [--al]] | --diagnostics
-cal2al compare  --cal2al <out> --reference <txt2al-out>
+Linux:
+```bash
+./cal2al --help
 ```
 
-## Continuous integration
 
-`.github/workflows/ci.yml` runs on every push and pull request to `main`:
+WinGet updates are available once the corresponding release manifest has been published and approved.
 
-* **test** (Ubuntu and Windows): restore, Release build, all xUnit tests (results uploaded as `.trx`), and a smoke run of `cal2al convert` on `tests/Fixtures`.
-* **package** (pushes to `main` only, after the tests pass): self-contained single-file `cal2al` executables for `win-x64`, `linux-x64` and `osx-arm64`, downloadable from the run's artifacts for 30 days.
+## Release Artifacts
 
-## Release packages
+Each GitHub release provides platform-specific downloads:
+
+- `cal2al-0.1.0-win-x64.zip` – Windows x64 executable (`cal2al.exe`), README and LICENSE.
+- `cal2al-0.1.0-linux-x64.tar.gz` – Linux x64 executable (`cal2al`), README and LICENSE.
+- `SHA256SUMS.txt` – Checksums for verifying downloaded packages.
+
+Verify downloaded files on Linux using:
+
+```bash
+sha256sum -c SHA256SUMS.txt
+```
+
+On Windows PowerShell, verify an archive using:
 
 ```powershell
-./scripts/Publish-Artifacts.ps1 -Version 0.1.0          # runs the tests, then packages
-./scripts/Publish-Artifacts.ps1 -Version 0.1.0 -SkipTests
+Get-FileHash .\cal2al-0.1.0-win-x64.zip -Algorithm SHA256
 ```
 
-Produces, in `artifacts/` (ignored by git):
+Compare the resulting hash with the corresponding entry in `SHA256SUMS.txt`.
 
-| File | Content |
-|---|---|
-| `cal2al-<version>-win-x64.zip` | `cal2al.exe`, `README.md`, `LICENSE` |
-| `cal2al-<version>-linux-x64.tar.gz` | `cal2al`, `README.md`, `LICENSE` |
-| `SHA256SUMS.txt` | checksums, verifiable with `sha256sum -c SHA256SUMS.txt` |
-
-The executables are self-contained single files (no .NET install needed). Upload the three files to a GitHub release, e.g. `gh release create v0.1.0 artifacts/* --title "Cal2AL 0.1.0"`. A Linux archive built on Windows has no executable bit: run `chmod +x cal2al` after extracting.
-
-## Layout
-
-| Path | Content |
-|---|---|
-| `cal2al/` | CLI (Cal2AL.CLI, executable `cal2al`) — System.CommandLine + Spectre.Console |
-| `src/Cal2AL.Core` | C/AL object model |
-| `src/Cal2AL.Parser` | TXT parser, encoding detection, C/AL lexer and parser, date literals |
-| `src/Cal2AL.Converter` | Object converters, engine, output layout, comparison, DI registration |
-| `src/Cal2AL.Generator` | AL model and writer |
-| `src/Cal2AL.Diagnostics` | Diagnostic catalogue and report |
-| `tests/Cal2AL.Tests` | xUnit tests; `tests/Fixtures` input, `tests/Cal2AL.Tests/Expected` approved output |
-| `tools/` | `New-Txt2AlReference.ps1` (Windows) and `txt2al-on-linux/` (run Txt2Al under Mono) for comparisons |
+The executables are self-contained single files, so no separate .NET installation is needed.
 
 ## Documentation
 
-* [Architecture](docs/architecture.md) — how Txt2Al works and how Cal2AL is built
-* [Conversion pipeline](docs/conversion-pipeline.md)
-* [Supported features](docs/supported-features.md)
-* [Known limitations](docs/known-limitations.md)
-* [Command-line reference](docs/command-line-reference.md)
+- [Architecture](docs/architecture.md)
+- [Conversion pipeline](docs/conversion-pipeline.md)
+- [Supported features](docs/supported-features.md)
+- [Known limitations](docs/known-limitations.md)
+- [Command-line reference](docs/command-line-reference.md)
 
 ## License
 
