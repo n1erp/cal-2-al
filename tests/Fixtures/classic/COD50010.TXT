@@ -1,0 +1,170 @@
+OBJECT Codeunit 50010 Cal2AL Posting Logic
+{
+  OBJECT-PROPERTIES
+  {
+    Date=12.10.18;
+    Time=12:00:00;
+    Modified=Yes;
+    Version List=CAL2AL1.00;
+  }
+  PROPERTIES
+  {
+    TableNo=50000;
+    Permissions=TableData 21=rimd;
+    OnRun=BEGIN
+            Customer.COPY(Rec);
+            Code;
+            Rec := Customer;
+          END;
+
+  }
+  CODE
+  {
+    VAR
+      Customer@1000 : Record 50000;
+      TempBuffer@1001 : TEMPORARY Record 50000;
+      Window@1002 : Dialog;
+      Text000@1003 : TextConst '@@@=%1 is the customer number;DEU=Debitor %1 wird verarbeitet...;ENU=Processing customer %1...';
+      Text001@1004 : TextConst 'ENU=Nothing to post.';
+      Text002@1005 : TextConst '@@@={Locked};ENU=CAL2AL';
+      Amounts@1006 : ARRAY [12] OF Decimal;
+      Key@1007 : Integer;
+      Status@1008 : ' ,Open,Released';
+
+    LOCAL PROCEDURE Code@1();
+    VAR
+      CustLedgEntry@1000 : Record 21;
+      i@1001 : Integer;
+      Total@1002 : Decimal;
+    BEGIN
+      Window.OPEN(Text000);
+      Window.UPDATE(1,Customer."No.");
+      { Collect open entries
+        into the buffer { nested braces } }
+      CustLedgEntry.RESET;
+      CustLedgEntry.SETCURRENTKEY("Customer No.","Posting Date");
+      CustLedgEntry.SETRANGE("Customer No.",Customer."No.");
+      CustLedgEntry.SETFILTER("Posting Date",'..%1',WORKDATE);
+      IF CustLedgEntry.FINDSET(TRUE,FALSE) THEN
+        REPEAT
+          i := DATE2DMY(CustLedgEntry."Posting Date",2);
+          Amounts[i] += CustLedgEntry.Amount;
+          Total := Total + CustLedgEntry.Amount;
+        UNTIL CustLedgEntry.NEXT = 0
+      ELSE
+        ERROR(Text001);
+
+      FOR i := 1 TO ARRAYLEN(Amounts) DO
+        IF Amounts[i] <> 0 THEN BEGIN
+          TempBuffer.INIT;
+          TempBuffer."No." := FORMAT(i);
+          TempBuffer.Name := COPYSTR(Customer.Name,1,MAXSTRLEN(TempBuffer.Name));
+          IF NOT TempBuffer.INSERT THEN
+            TempBuffer.MODIFY;
+        END;
+
+      CASE Customer."Customer Type" OF
+        Customer."Customer Type"::Company:
+          Key := 1;
+        Customer."Customer Type"::Person:
+          BEGIN
+            Key := 2;
+            Customer.VALIDATE(Name,UPPERCASE(Customer.Name));
+          END;
+        ELSE
+          Key := 0;
+      END;
+
+      WHILE (Key > 0) AND (Total < 0) DO BEGIN
+        Total += 100;
+        Key -= 1;
+      END;
+
+      IF Customer."Customer Type" IN [Customer."Customer Type"::Company,Customer."Customer Type"::Person] THEN
+        Customer.MODIFY(TRUE);  // keep the record in sync
+
+      CASE TRUE OF
+        Total IN [0..100]:
+          Status := Status::Open;
+        Total > 100:
+          Status := Status::Released;
+      END;
+
+      IF Customer.GET(Customer."No.") THEN
+        Customer.DELETE(TRUE);
+      Window.CLOSE;
+    END;
+
+    PROCEDURE PostDocument@2(VAR CustomerRec@1000 : Record 50000;Amount@1001 : Decimal;Description@1002 : Text[50]) Posted : Boolean;
+    VAR
+      CustLedgEntry@1003 : Record 21;
+      EntryNo@1004 : Integer;
+    BEGIN
+      IF Amount = 0 THEN
+        EXIT(FALSE);
+      CustLedgEntry.LOCKTABLE;
+      IF CustLedgEntry.FINDLAST THEN
+        EntryNo := CustLedgEntry."Entry No." + 1
+      ELSE
+        EntryNo := 1;
+      CustLedgEntry.INIT;
+      CustLedgEntry."Entry No." := EntryNo;
+      CustLedgEntry."Customer No." := CustomerRec."No.";
+      CustLedgEntry.Amount := Amount;
+      CustLedgEntry.Description := Description;
+      CustLedgEntry.INSERT;
+      CustomerRec.CALCFIELDS(Balance);
+      OnAfterPostDocument(CustomerRec,CustLedgEntry);
+      Posted := TRUE;
+    END;
+
+    [Integration]
+    LOCAL PROCEDURE OnAfterPostDocument@3(VAR CustomerRec@1000 : Record 50000;CustLedgEntry@1001 : Record 21);
+    BEGIN
+    END;
+
+    [EventSubscriber(Table,50000,OnAfterInsertEvent,"",Skip,Skip)]
+    LOCAL PROCEDURE HandleCustomerInsert@4(VAR Rec@1000 : Record 50000;RunTrigger@1001 : Boolean);
+    BEGIN
+      IF NOT RunTrigger THEN
+        EXIT;
+      IF Rec.ISTEMPORARY THEN
+        EXIT;
+      Rec."Last Date Modified" := TODAY;
+    END;
+
+    [TryFunction]
+    PROCEDURE TryValidateName@5(VAR CustomerRec@1000 : Record 50000;NewName@1001 : Text[50]);
+    BEGIN
+      CustomerRec.VALIDATE(Name,NewName);
+    END;
+
+    [Business(TRUE)]
+    PROCEDURE OnBeforeArchive@6(CustomerNo@1000 : Code[20]);
+    BEGIN
+    END;
+
+    PROCEDURE IsInFiscalYear@7(PostingDate@1000 : Date;PostingTime@1001 : Time) : Boolean;
+    VAR
+      StartDate@1002 : Date;
+      EndDate@1003 : Date;
+    BEGIN
+      // C/AL date constants are MMDDYY[YY]D; AL needs yyyymmddD.
+      StartDate := 010125D;
+      EndDate := 12312025D;
+      IF PostingDate = 0D THEN
+        EXIT(FALSE);
+      IF PostingTime > 235959T THEN
+        EXIT(FALSE);
+      EXIT((PostingDate >= StartDate) AND (PostingDate <= EndDate));
+    END;
+
+    BEGIN
+    {
+      Cal2AL fixture: large codeunit covering the main C/AL statement types.
+      Table 21 (Cust. Ledger Entry) is a standard table that is not part of this fixture set.
+    }
+    END.
+  }
+}
+

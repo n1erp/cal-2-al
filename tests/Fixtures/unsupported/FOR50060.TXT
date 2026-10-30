@@ -1,0 +1,26 @@
+OBJECT Form 50060 Cal2AL Old Form
+{
+  OBJECT-PROPERTIES
+  {
+    Date=12.10.08;
+    Time=12:00:00;
+    Modified=Yes;
+    Version List=CAL2AL1.00;
+  }
+  PROPERTIES
+  {
+    Width=8000;
+    Height=6000;
+  }
+  CONTROLS
+  {
+    { 1   ;TextBox      ;3300 ;220  ;1700 ;440  ;SourceExpr="No." }
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+

@@ -1,0 +1,13 @@
+// Cal2AL migration artifact: changes from COD50010.DELTA that could not be converted into an AL extension. Re-implement them manually.
+
+// ---- line 15: Codeunit objects cannot be extended.
+    { CodeModification  ;OriginalCode=BEGIN
+                                        Code;
+                                      END;
+
+                         ModifiedCode=BEGIN
+                                        Code;
+                                        MESSAGE('Posted');
+                                      END;
+
+                         Target=OnRun }

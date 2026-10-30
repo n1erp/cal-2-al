@@ -1,0 +1,68 @@
+OBJECT Modification "Cal2AL Test Customer"(Table 50000)
+{
+  OBJECT-PROPERTIES
+  {
+    Date=15.10.18;
+    Time=12:00:00;
+    Version List=CAL2AL1.00,MOD01;
+  }
+  PROPERTIES
+  {
+    Target="Cal2AL Test Customer"(Table 50000);
+  }
+  CHANGES
+  {
+    { Insertion         ;InsertAfter="Salesperson Code"(Field 4);
+                         ChangedElements=FieldCollection
+                         {
+                           { 50000;  ;Loyalty Level       ;Option        ;CaptionML=ENU=Loyalty Level;
+                                                                          OptionString=None,Silver,Gold }
+                           { 50001;  ;Loyalty Points      ;Integer       ;CaptionML=ENU=Loyalty Points;
+                                                                          OnValidate=BEGIN
+                                                                                       IF "Loyalty Points" > 1000 THEN
+                                                                                         "Loyalty Level" := "Loyalty Level"::Gold;
+                                                                                     END;
+                                                                                      }
+                         }
+                          }
+    { Insertion         ;InsertAfter=NoSeriesMgt(Variable 1002);
+                         ChangedElements=VariableCollection
+                         {
+                           LoyaltyMgt@1000000000 : Codeunit 50010;
+                         }
+                          }
+    { Insertion         ;InsertAfter=GetTotalBalance(PROCEDURE 3);
+                         ChangedElements=PROCEDURECollection
+                         {
+                           PROCEDURE AddLoyaltyPoints@1000000000(Points@1000000000 : Integer);
+                           BEGIN
+                             "Loyalty Points" += Points;
+                             MODIFY(TRUE);
+                           END;
+
+                         }
+                          }
+    { CodeModification  ;OriginalCode=BEGIN
+                                        "Last Date Modified" := TODAY;
+                                      END;
+
+                         ModifiedCode=BEGIN
+                                        "Last Date Modified" := TODAY;
+                                        IF "Loyalty Points" < 0 THEN
+                                          "Loyalty Points" := 0;
+                                      END;
+
+                         Target=OnModify }
+    { PropertyModification;
+                         Property=Version List;
+                         OriginalValue=CAL2AL1.00;
+                         ModifiedValue=CAL2AL1.00,MOD01 }
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+

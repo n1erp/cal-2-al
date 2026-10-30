@@ -1,0 +1,20 @@
+OBJECT MenuSuite 1090 Dept - Cal2AL
+{
+  OBJECT-PROPERTIES
+  {
+    Date=12.10.18;
+    Time=12:00:00;
+    Modified=Yes;
+    Version List=CAL2AL1.00;
+  }
+  MENUNODES
+  {
+    {                ;[{5D7A9C2E-0000-0000-0000-000000000001}] ;NextNodeID=[{00000000-0000-0000-0000-000000000000}] }
+    { MenuItem       ;[{5D7A9C2E-0000-0000-0000-000000000002}] ;Name=Test Customers;
+                                                                CaptionML=ENU=Test Customers;
+                                                                MemberOfMenu=[{5D7A9C2E-0000-0000-0000-000000000001}];
+                                                                RunObjectType=Page;
+                                                                RunObjectID=50002;
+                                                                NextNodeID=[{00000000-0000-0000-0000-000000000000}] }
+  }
+}

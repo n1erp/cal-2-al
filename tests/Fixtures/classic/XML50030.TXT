@@ -1,0 +1,72 @@
+OBJECT XMLport 50030 Cal2AL Customer Export
+{
+  OBJECT-PROPERTIES
+  {
+    Date=12.10.18;
+    Time=12:00:00;
+    Modified=Yes;
+    Version List=CAL2AL1.00;
+  }
+  PROPERTIES
+  {
+    CaptionML=ENU=Customer Export;
+    Direction=Export;
+    Encoding=UTF-8;
+    Format=Xml;
+    OnPostXMLport=BEGIN
+                    MESSAGE('%1 customers exported.',RecordCount);
+                  END;
+
+  }
+  ELEMENTS
+  {
+    { [{6A9B3C2D-1111-4E2B-9C3A-000000000001}];  ;Customers           ;Element ;Text     }
+
+    { [{6A9B3C2D-1111-4E2B-9C3A-000000000002}];1 ;Customer            ;Element ;Table   ;
+                                                  VariableName=Customer;
+                                                  SourceTable=Table50000;
+                                                  SourceTableView=SORTING(No.);
+                                                  Export::OnAfterGetRecord=BEGIN
+                                                                             RecordCount += 1;
+                                                                           END;
+                                                                            }
+
+    { [{6A9B3C2D-1111-4E2B-9C3A-000000000003}];2 ;No                  ;Attribute;Field  ;
+                                                  DataType=Code;
+                                                  SourceField=Customer::No. }
+
+    { [{6A9B3C2D-1111-4E2B-9C3A-000000000004}];2 ;Name                ;Element ;Field   ;
+                                                  DataType=Text;
+                                                  SourceField=Customer::Name }
+
+    { [{6A9B3C2D-1111-4E2B-9C3A-000000000005}];2 ;Balance-LCY         ;Element ;Text    ;
+                                                  DataType=Decimal;
+                                                  Export::OnBeforePassVariable=BEGIN
+                                                                                 Customer.CALCFIELDS(Balance);
+                                                                                 "Balance-LCY" := FORMAT(Customer.Balance,0,9);
+                                                                               END;
+                                                                                }
+
+  }
+  EVENTS
+  {
+  }
+  REQUESTPAGE
+  {
+    PROPERTIES
+    {
+    }
+    CONTROLS
+    {
+    }
+  }
+  CODE
+  {
+    VAR
+      RecordCount@1000 : Integer;
+
+    BEGIN
+    END.
+  }
+}
+

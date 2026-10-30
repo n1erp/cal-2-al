@@ -1,0 +1,73 @@
+OBJECT Codeunit 50012 Cal2AL Valid Before
+{
+  OBJECT-PROPERTIES
+  {
+    Date=12.10.18;
+    Time=12:00:00;
+    Version List=CAL2AL1.00;
+  }
+  PROPERTIES
+  {
+    OnRun=BEGIN
+            MESSAGE('before');
+          END;
+
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+
+OBJECT Codeunit 50013 Cal2AL Broken
+{
+  OBJECT-PROPERTIES
+  {
+    Date=12.10.18;
+    Time=12:00:00;
+    Version List=CAL2AL1.00;
+  }
+  PROPERTIES
+  {
+    OnRun=BEGIN
+            MESSAGE('this trigger never ends');
+
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+
+OBJECT Codeunit 50014 Cal2AL Valid After
+{
+  OBJECT-PROPERTIES
+  {
+    Date=12.10.18;
+    Time=12:00:00;
+    Version List=CAL2AL1.00;
+  }
+  PROPERTIES
+  {
+    OnRun=BEGIN
+            MESSAGE('after');
+          END;
+
+  }
+  CODE
+  {
+
+    PROCEDURE BrokenCode@1();
+    BEGIN
+      IF THEN MESSAGE('x');
+    END;
+
+    BEGIN
+    END.
+  }
+}
+

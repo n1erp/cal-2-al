@@ -1,0 +1,33 @@
+# Known limitations
+
+These are known gaps. Each produces a diagnostic when it happens — none is silent.
+
+## Not verified against Txt2Al output
+
+Txt2Al (net472, Windows) cannot run in the environment where Cal2AL was built, so **no real Txt2Al output is included and no parity is claimed**. Use `tools/New-Txt2AlReference.ps1` on Windows to produce reference output from the same input, then `cal2al compare --cal2al <out> --reference <ref>`. Known *intended* differences: Cal2AL rewrites date constants, keeps code Txt2Al comments out or drops (unknown triggers become local procedures, unsupported properties are reported), converts safe delta code changes into extension triggers, and names controls deterministically.
+
+## Not compiled with the AL compiler
+
+Cal2AL checks its own output (re-lexing, re-parsing, token comparison) but does not run `alc`. Compile the generated project to catch semantic errors such as:
+
+* references to objects or fields outside the converted set (kept by ID or name, CAL4001);
+* code that uses features unavailable in the target (reported as CAL3001/3003/3005/3010/3011, but kept so you can see it);
+* page extensions whose added code uses globals of the base page (base page variables are not visible from an extension; Cal2AL cannot detect this without the base page).
+
+## Object and property coverage
+
+* Forms, Dataports, MenuSuites and reports with classic sections are not converted (artifact only). Transform forms to pages and reports to RDLC in NAV first.
+* Report extensions are not generated; deltas of reports, codeunits, XMLports and queries go to the artifact (CAL5003).
+* Delta anchors without a name (`Control 12`) become `Control12`/`Action12` (CAL5005); verify against the base object's AL names.
+* Delta property changes are limited to properties AL allows in extensions (conservative list in `ModificationConverter`); others → CAL5002.
+* `app.json` is not generated (Txt2Al does not generate it either). Create it with `AL: Go!` and copy the files in.
+* Generated XLIFF files use C/AL-based unit IDs, not the hashed IDs of the compiler's `.g.xlf`; merge them with a tool such as XLIFF Sync after the first compile.
+* Enum captions in languages other than ENU are not added to the XLIFF files.
+* A field name containing `"` is renamed (`"` → `'`, CAL1013) because AL identifiers cannot contain double quotes.
+
+## Code
+
+* The C/AL parser is used for analysis; when it cannot parse a body (CAL0110) the rules that need the syntax tree (e.g. statement counts) are skipped for that body, but the tokens are still converted and verified.
+* Two-digit years are read with pivot 30 (`00–29` → 20xx, `30–99` → 19xx) and reported; check them.
+* `WITH` statements are kept (AL still accepts them with a warning on older runtimes; implicit `with` is an error from runtime 12 in some contexts) and reported (CAL3004/CAL3015).
+* `--date-order DayMonthYear` applies to the whole run; mixed exports must be converted separately.

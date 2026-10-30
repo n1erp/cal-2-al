@@ -1,0 +1,62 @@
+OBJECT Page 50002 Cal2AL Test Customer List
+{
+  OBJECT-PROPERTIES
+  {
+    Date=12.10.18;
+    Time=12:00:00;
+    Modified=Yes;
+    Version List=CAL2AL1.00;
+  }
+  PROPERTIES
+  {
+    Editable=No;
+    CaptionML=ENU=Test Customers;
+    SourceTable=Table50000;
+    SourceTableView=SORTING(Name)
+                    WHERE(Blocked=CONST(No));
+    PageType=List;
+    CardPageID=Cal2AL Test Customer Card;
+    ActionList=ACTIONS
+    {
+      { 1900000004;0 ;ActionContainer;
+                      ActionContainerType=Reports }
+      { 2       ;1   ;Action    ;
+                      CaptionML=ENU=Customer List;
+                      RunObject=Report 50020;
+                      Promoted=Yes;
+                      Image=Report;
+                      PromotedCategory=Report }
+      { 3       ;1   ;Separator  }
+    }
+  }
+  CONTROLS
+  {
+    { 1900000001;0;Container;
+                ContainerType=ContentArea }
+
+    { 1   ;1   ;Group     ;
+                GroupType=Repeater }
+
+    { 4   ;2   ;Field     ;
+                SourceExpr="No." }
+
+    { 5   ;2   ;Field     ;
+                SourceExpr=Name }
+
+    { 6   ;2   ;Field     ;
+                SourceExpr=Balance;
+                BlankZero=Yes }
+
+    { 7   ;2   ;Field     ;
+                SourceExpr="E-Mail";
+                Visible=FALSE }
+
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+

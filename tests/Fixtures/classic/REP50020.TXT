@@ -1,0 +1,107 @@
+OBJECT Report 50020 Cal2AL Customer List
+{
+  OBJECT-PROPERTIES
+  {
+    Date=12.10.18;
+    Time=12:00:00;
+    Modified=Yes;
+    Version List=CAL2AL1.00;
+  }
+  PROPERTIES
+  {
+    CaptionML=ENU=Customer List;
+    OnPreReport=BEGIN
+                  CustFilter := Customer.GETFILTERS;
+                END;
+
+  }
+  DATASET
+  {
+    { 6836;    ;DataItem;Customer            ;
+               DataItemTable=Table50000;
+               DataItemTableView=SORTING(No.);
+               PrintOnlyIfDetail=No;
+               ReqFilterFields=No.,Name,Customer Type;
+               OnAfterGetRecord=BEGIN
+                                  CALCFIELDS(Balance);
+                                  IF OnlyWithBalance AND (Balance = 0) THEN
+                                    CurrReport.SKIP;
+                                END;
+
+               ReqFilterHeadingML=ENU=Customer }
+
+    { 1   ;1   ;Column  ;COMPANYNAME         ;
+               SourceExpr=COMPANYNAME }
+
+    { 2   ;1   ;Column  ;Customer_No         ;
+               IncludeCaption=Yes;
+               SourceExpr="No." }
+
+    { 3   ;1   ;Column  ;Customer_Name       ;
+               IncludeCaption=Yes;
+               SourceExpr=Name }
+
+    { 4   ;1   ;Column  ;Customer_Balance    ;
+               SourceExpr=Balance;
+               AutoFormatType=1 }
+
+    { 5   ;1   ;DataItem;Ledger              ;
+               DataItemTable=Table21;
+               DataItemTableView=SORTING(Customer No.,Posting Date) WHERE(Open=CONST(Yes));
+               DataItemLink=Customer No.=FIELD(No.) }
+
+    { 6   ;2   ;Column  ;Ledger_Amount       ;
+               SourceExpr=Amount }
+
+  }
+  REQUESTPAGE
+  {
+    PROPERTIES
+    {
+      SaveValues=Yes;
+    }
+    CONTROLS
+    {
+      { 1900000001;0;Container;
+                  ContainerType=ContentArea }
+
+      { 1   ;1   ;Group     ;
+                  CaptionML=ENU=Options }
+
+      { 2   ;2   ;Field     ;
+                  CaptionML=ENU=Only with Balance;
+                  SourceExpr=OnlyWithBalance }
+
+    }
+  }
+  LABELS
+  {
+    { 1   ;ReportTitleLbl      ;CaptionML=[ENU=Customer List;
+                                           DEU=Debitorenliste] }
+  }
+  CODE
+  {
+    VAR
+      CustFilter@1000 : Text;
+      OnlyWithBalance@1001 : Boolean;
+
+    BEGIN
+    END.
+  }
+  RDLDATA
+  {
+  <?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+    </DataSource>
+  </DataSources>
+</Report>
+    END_OF_RDLDATA
+  }
+}
+

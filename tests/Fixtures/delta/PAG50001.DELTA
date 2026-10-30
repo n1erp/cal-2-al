@@ -1,0 +1,117 @@
+OBJECT Modification "Cal2AL Test Customer Card"(Page 50001)
+{
+  OBJECT-PROPERTIES
+  {
+    Date=15.10.18;
+    Time=12:00:00;
+    Version List=CAL2AL1.00,MOD01;
+  }
+  PROPERTIES
+  {
+    Target="Cal2AL Test Customer Card"(Page 50001);
+  }
+  CHANGES
+  {
+    { Insertion         ;InsertAfter="Salesperson Code"(Control 5);
+                         ChangedElements=ControlCollection
+                         {
+                           { 1000000000;2;Field  ;
+                                       SourceExpr="Loyalty Level" }
+
+                           { 1000000001;2;Field  ;
+                                       SourceExpr="Loyalty Points";
+                                       OnValidate=BEGIN
+                                                    CurrPage.UPDATE;
+                                                  END;
+                                                   }
+
+                         }
+                          }
+    { Insertion         ;InsertAfter=CalculateBalance(Action 30);
+                         ChangedElements=ActionCollection
+                         {
+                           { 1000000002;1 ;Action    ;
+                                           Name=AddPoints;
+                                           CaptionML=ENU=Add Loyalty Points;
+                                           Image=Add;
+                                           OnAction=BEGIN
+                                                      AddLoyaltyPoints(10);
+                                                    END;
+                                                     }
+
+                         }
+                          }
+    { Insertion         ;ChangedElements=PROCEDURECollection
+                         {
+                           LOCAL PROCEDURE SetLoyaltyVisibility@1000000000();
+                           BEGIN
+                             LoyaltyVisible := "Loyalty Points" > 0;
+                           END;
+
+                         }
+                          }
+    { Insertion         ;ChangedElements=VariableCollection
+                         {
+                           LoyaltyVisible@1000000000 : Boolean;
+                         }
+                          }
+    { PropertyModification;
+                         Target=Balance(Control 6);
+                         Property=Visible;
+                         OriginalValue=BalanceAvailable;
+                         ModifiedValue=Yes }
+    { PropertyModification;
+                         Target="Ship-to Code"(Control 8);
+                         Property=SourceExpr;
+                         OriginalValue="Ship-to Code";
+                         ModifiedValue="Ship-to Code 2" }
+    { CodeModification  ;OriginalCode=BEGIN
+                                        SetControlVisibility;
+                                      END;
+
+                         ModifiedCode=BEGIN
+                                        SetControlVisibility;
+                                        SetLoyaltyVisibility;
+                                      END;
+
+                         Target=OnOpenPage }
+    { CodeModification  ;OriginalCode=BEGIN
+                                        IF Name = '' THEN
+                                          EXIT(CONFIRM(Text002,FALSE));
+                                      END;
+
+                         ModifiedCode=BEGIN
+                                        IF Name = '' THEN
+                                          EXIT(CONFIRM(Text002,FALSE));
+                                        IF "Loyalty Points" < 0 THEN
+                                          EXIT(FALSE);
+                                      END;
+
+                         Target=OnQueryClosePage }
+    { CodeModification  ;OriginalCode=BEGIN
+                                        SalespersonCodeOnAfterValidate;
+                                      END;
+
+                         ModifiedCode=BEGIN
+                                        IF "Salesperson Code" = '' THEN
+                                          EXIT;
+                                        SalespersonCodeOnAfterValidate;
+                                      END;
+
+                         Target="Salesperson Code"(Control 5).OnValidate }
+    { Deletion          ;Target=Control11;
+                         ChangedElements=ControlCollection
+                         {
+                           { 11  ;2   ;Field     ;
+                                       SourceExpr=Name }
+
+                         }
+                          }
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}

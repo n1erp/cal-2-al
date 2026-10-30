@@ -1,0 +1,21 @@
+OBJECT Codeunit 50013 Cal2AL Broken
+{
+  OBJECT-PROPERTIES
+  {
+    Date=12.10.18;
+    Time=12:00:00;
+    Version List=CAL2AL1.00;
+  }
+  PROPERTIES
+  {
+    OnRun=BEGIN
+            MESSAGE('this trigger never ends');
+
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}

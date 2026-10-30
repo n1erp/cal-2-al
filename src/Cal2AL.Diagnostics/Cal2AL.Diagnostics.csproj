@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Cal2AL.Diagnostics</RootNamespace>
+  </PropertyGroup>
+</Project>

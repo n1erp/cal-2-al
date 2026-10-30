@@ -1,0 +1,48 @@
+OBJECT Query 50040 Cal2AL Customer Balances
+{
+  OBJECT-PROPERTIES
+  {
+    Date=12.10.18;
+    Time=12:00:00;
+    Modified=Yes;
+    Version List=CAL2AL1.00;
+  }
+  PROPERTIES
+  {
+    CaptionML=ENU=Customer Balances;
+    OrderBy=Balance=Descending;
+  }
+  ELEMENTS
+  {
+    { 1   ;    ;DataItem;Customer            ;
+               DataItemTable=Table50000 }
+
+    { 2   ;1   ;Column  ;No                  ;
+               DataSource=No. }
+
+    { 3   ;1   ;Column  ;Name                ;
+               DataSource=Name }
+
+    { 4   ;1   ;DataItem;Cust_Ledger_Entry   ;
+               DataItemTable=Table21;
+               DataItemLink=Customer No.=Customer.No.;
+               SQLJoinType=Inner Join }
+
+    { 5   ;2   ;Filter  ;Open                ;
+               DataSource=Open;
+               ColumnFilter=Open=CONST(Yes) }
+
+    { 6   ;2   ;Column  ;Balance             ;
+               DataSource=Amount;
+               MethodType=Totals;
+               Method=Sum }
+
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+

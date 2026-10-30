@@ -1,0 +1,63 @@
+OBJECT Codeunit 50011 Cal2AL Legacy Interop
+{
+  OBJECT-PROPERTIES
+  {
+    Date=12.10.18;
+    Time=12:00:00;
+    Modified=Yes;
+    Version List=CAL2AL1.00;
+  }
+  PROPERTIES
+  {
+    OnRun=BEGIN
+            IF ISSERVICETIER THEN
+              ExportToExcel;
+          END;
+
+  }
+  CODE
+  {
+    VAR
+      XlApp@1000 : Automation "{00020813-0000-0000-C000-000000000046} 1.6:{00024500-0000-0000-C000-000000000046}:'Microsoft Excel 16.0 Object Library'.Application";
+      Timer@1002 : DotNet "'System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089'.System.Timers.Timer" WITHEVENTS;
+      ServerFile@1003 : File;
+
+    PROCEDURE ExportToExcel@1();
+    BEGIN
+      CREATE(XlApp,FALSE,TRUE);
+      XlApp.Visible(TRUE);
+      CLEAR(XlApp);
+    END;
+
+    PROCEDURE ShowCustomer@2(CustomerNo@1000 : Code[20]);
+    VAR
+      Customer@1001 : Record 50000;
+    BEGIN
+      Customer.GET(CustomerNo);
+      FORM.RUNMODAL(FORM::"Customer Card",Customer);
+    END;
+
+    PROCEDURE WriteServerFile@3(FileName@1000 : Text);
+    BEGIN
+      ServerFile.CREATE(FileName);
+      ServerFile.WRITE('Cal2AL');
+      ServerFile.CLOSE;
+      SHELL('notepad.exe',FileName);
+    END;
+
+    PROCEDURE StartTimer@4();
+    BEGIN
+      Timer := Timer.Timer(1000);
+      Timer.Enabled := TRUE;
+    END;
+
+    EVENT Timer@1002::Elapsed@12(sender@1001 : Variant;e@1000 : DotNet "'System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089'.System.Timers.ElapsedEventArgs");
+    BEGIN
+      MESSAGE('Elapsed');
+    END;
+
+    BEGIN
+    END.
+  }
+}
+

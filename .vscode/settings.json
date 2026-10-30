@@ -1,0 +1,6 @@
+{
+    "alSchema.sourcePaths": [
+        "tests/Cal2AL.Tests/Expected"
+    ],
+    "alSchema.symbolsPaths": []
+}

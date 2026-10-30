@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "cal2al": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

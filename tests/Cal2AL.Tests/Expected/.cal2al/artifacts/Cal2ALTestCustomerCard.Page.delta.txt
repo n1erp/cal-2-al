@@ -1,0 +1,46 @@
+// Cal2AL migration artifact: changes from PAG50001.DELTA that could not be converted into an AL extension. Re-implement them manually.
+
+// ---- line 63: Property 'SourceExpr' cannot be changed on a control by an AL extension.
+    { PropertyModification;
+                         Target="Ship-to Code"(Control 8);
+                         Property=SourceExpr;
+                         OriginalValue="Ship-to Code";
+                         ModifiedValue="Ship-to Code 2" }
+
+// ---- line 78: The lines added to 'OnQueryClosePage' cannot be moved to an extension trigger: the original code contains EXIT, so the added lines did not always run
+    { CodeModification  ;OriginalCode=BEGIN
+                                        IF Name = '' THEN
+                                          EXIT(CONFIRM(Text002,FALSE));
+                                      END;
+
+                         ModifiedCode=BEGIN
+                                        IF Name = '' THEN
+                                          EXIT(CONFIRM(Text002,FALSE));
+                                        IF "Loyalty Points" < 0 THEN
+                                          EXIT(FALSE);
+                                      END;
+
+                         Target=OnQueryClosePage }
+
+// ---- line 91: The lines added to '"Salesperson Code"(Control 5).OnValidate' cannot be moved to an extension trigger: the added lines contain EXIT, which skipped the original code
+    { CodeModification  ;OriginalCode=BEGIN
+                                        SalespersonCodeOnAfterValidate;
+                                      END;
+
+                         ModifiedCode=BEGIN
+                                        IF "Salesperson Code" = '' THEN
+                                          EXIT;
+                                        SalespersonCodeOnAfterValidate;
+                                      END;
+
+                         Target="Salesperson Code"(Control 5).OnValidate }
+
+// ---- line 102: A 'Deletion' change cannot be expressed in an AL extension (extensions can only add to or adjust the base object).
+    { Deletion          ;Target=Control11;
+                         ChangedElements=ControlCollection
+                         {
+                           { 11  ;2   ;Field     ;
+                                       SourceExpr=Name }
+
+                         }
+                          }

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en-US" target-language="de-DE" original="Cal2AL">
+    <body>
+      <group id="body">
+        <trans-unit id="Table Cal2AL Test Customer - Property Caption" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Test Customer</source>
+          <target>Testdebitor</target>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Cal2AL Test Customer - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Field No. - Property Caption" size-unit="char" translate="yes" xml:space="preserve">
+          <source>No.</source>
+          <target>Nr.</target>
+          <note from="Xliff Generator" annotates="general" priority="3">Field No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Field Name - Property Caption" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Name</source>
+          <target>Name</target>
+          <note from="Xliff Generator" annotates="general" priority="3">Field Name - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Field Customer Type - Property OptionCaption" size-unit="char" translate="yes" xml:space="preserve">
+          <source> ,Company,Person</source>
+          <target> ,Firma,Person</target>
+          <note from="Xliff Generator" annotates="general" priority="3">Field Customer Type - Property OptionCaption</note>
+        </trans-unit>
+        <trans-unit id="Table Cal2AL Test Customer - NamedType Text000" size-unit="char" translate="yes" xml:space="preserve">
+          <source>You cannot delete %1 %2 because there are still entries.</source>
+          <target>Sie können %1 %2 nicht löschen, da noch Posten vorhanden sind.</target>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Cal2AL Test Customer - NamedType Text000</note>
+        </trans-unit>
+        <trans-unit id="Table Cal2AL Größentabelle - Property Caption" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Size Table</source>
+          <target>Größentabelle</target>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Cal2AL Größentabelle - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Field Code - Property Caption" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Code</source>
+          <target>Kürzel</target>
+          <note from="Xliff Generator" annotates="general" priority="3">Field Code - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Field Beschreibung - Property Caption" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Description</source>
+          <target>Beschreibung (Größe)</target>
+          <note from="Xliff Generator" annotates="general" priority="3">Field Beschreibung - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Field Maße &quot;Außen&quot; - Property Caption" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Outer Size</source>
+          <target>Maße &quot;Außen&quot;</target>
+          <note from="Xliff Generator" annotates="general" priority="3">Field Maße &quot;Außen&quot; - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page Cal2AL Test Customer Card - Property Caption" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Test Customer Card</source>
+          <target>Testdebitorkarte</target>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Cal2AL Test Customer Card - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page Cal2AL Test Customer Card - Property PromotedActionCategories" size-unit="char" translate="yes" xml:space="preserve">
+          <source>New,Process,Report,Customer</source>
+          <target>Neu,Verarbeiten,Bericht,Debitor</target>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Cal2AL Test Customer Card - Property PromotedActionCategories</note>
+        </trans-unit>
+        <trans-unit id="ReportLabel ReportTitleLbl" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Customer List</source>
+          <target>Debitorenliste</target>
+          <note from="Xliff Generator" annotates="general" priority="3">ReportLabel ReportTitleLbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit Cal2AL Posting Logic - NamedType Text000" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Processing customer %1...</source>
+          <target>Debitor %1 wird verarbeitet...</target>
+          <note from="Developer" annotates="general" priority="2">%1 is the customer number</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit Cal2AL Posting Logic - NamedType Text000</note>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>

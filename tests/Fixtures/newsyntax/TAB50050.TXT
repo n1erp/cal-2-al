@@ -1,0 +1,44 @@
+OBJECT Table 50050 Cal2AL New Syntax Item
+{
+  OBJECT-PROPERTIES
+  {
+    Date=12.10.18;
+    Time=12:00:00;
+    Modified=Yes;
+    Version List=CAL2AL1.00;
+  }
+  PROPERTIES
+  {
+    CaptionML=ENU=New Syntax Item;
+    LookupPageID="Cal2AL Test Customer List";
+  }
+  FIELDS
+  {
+    { 1   ;   ;No.                 ;Code20        ;CaptionML=ENU=No. }
+    { 2   ;   ;Customer No.        ;Code20        ;TableRelation="Cal2AL Test Customer"."No." WHERE ("Customer Type"=CONST(Company));
+                                                   CaptionML=ENU=Customer No. }
+    { 3   ;   ;Customer Balance    ;Decimal       ;FieldClass=FlowField;
+                                                   CalcFormula=Lookup("Cal2AL Test Customer".Balance WHERE ("No."=FIELD("Customer No.")));
+                                                   CaptionML=ENU=Customer Balance;
+                                                   Editable=No }
+  }
+  KEYS
+  {
+    {    ;No.                                     ;Clustered=Yes }
+  }
+  CODE
+  {
+    VAR
+      Cust@1000 : Record "Cal2AL Test Customer";
+
+    PROCEDURE GetCustomerName@1() : Text[50];
+    BEGIN
+      IF Cust.GET("Customer No.") THEN
+        EXIT(Cust.Name);
+    END;
+
+    BEGIN
+    END.
+  }
+}
+

@@ -1,0 +1,32 @@
+OBJECT Modification "Cal2AL Posting Logic"(Codeunit 50010)
+{
+  OBJECT-PROPERTIES
+  {
+    Date=15.10.18;
+    Time=12:00:00;
+    Version List=CAL2AL1.00,MOD01;
+  }
+  PROPERTIES
+  {
+    Target="Cal2AL Posting Logic"(Codeunit 50010);
+  }
+  CHANGES
+  {
+    { CodeModification  ;OriginalCode=BEGIN
+                                        Code;
+                                      END;
+
+                         ModifiedCode=BEGIN
+                                        Code;
+                                        MESSAGE('Posted');
+                                      END;
+
+                         Target=OnRun }
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}

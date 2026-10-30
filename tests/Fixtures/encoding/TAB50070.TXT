@@ -1,0 +1,35 @@
+OBJECT Table 50070 Cal2AL Grî·entabelle
+{
+  OBJECT-PROPERTIES
+  {
+    Date=12.10.18;
+    Time=12:00:00;
+    Modified=Yes;
+    Version List=CAL2AL1.00;
+  }
+  PROPERTIES
+  {
+    CaptionML=[DEU=Grî·entabelle;
+               ENU=Size Table];
+  }
+  FIELDS
+  {
+    { 1   ;   ;Code                ;Code10        ;CaptionML=[DEU=KÅrzel;
+                                                              ENU=Code] }
+    { 2   ;   ;Beschreibung        ;Text50        ;CaptionML=[DEU=Beschreibung (Grî·e);
+                                                              ENU=Description] }
+    { 3   ;   ;Ma·e "Au·en"        ;Decimal       ;CaptionML=[DEU=Ma·e "Au·en";
+                                                              ENU=Outer Size] }
+  }
+  KEYS
+  {
+    {    ;Code                                    ;Clustered=Yes }
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+

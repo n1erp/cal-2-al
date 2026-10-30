@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Cal2AL.Core</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cal2AL.Diagnostics\Cal2AL.Diagnostics.csproj" />
+  </ItemGroup>
+</Project>

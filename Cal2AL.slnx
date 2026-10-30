@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="cal2al/cal2al.csproj" />
+    <Project Path="src/Cal2AL.Converter/Cal2AL.Converter.csproj" />
+    <Project Path="src/Cal2AL.Core/Cal2AL.Core.csproj" />
+    <Project Path="src/Cal2AL.Diagnostics/Cal2AL.Diagnostics.csproj" />
+    <Project Path="src/Cal2AL.Generator/Cal2AL.Generator.csproj" />
+    <Project Path="src/Cal2AL.Parser/Cal2AL.Parser.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Cal2AL.Tests/Cal2AL.Tests.csproj" />
+  </Folder>
+</Solution>

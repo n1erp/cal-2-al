@@ -1,0 +1,194 @@
+OBJECT Page 50001 Cal2AL Test Customer Card
+{
+  OBJECT-PROPERTIES
+  {
+    Date=12.10.18;
+    Time=12:00:00;
+    Modified=Yes;
+    Version List=CAL2AL1.00;
+  }
+  PROPERTIES
+  {
+    CaptionML=[ENU=Test Customer Card;
+               DEU=Testdebitorkarte];
+    SourceTable=Table50000;
+    PageType=Card;
+    PromotedActionCategoriesML=[ENU=New,Process,Report,Customer;
+                                DEU=Neu,Verarbeiten,Bericht,Debitor];
+    OnOpenPage=BEGIN
+                 SetControlVisibility;
+               END;
+
+    OnAfterGetRecord=BEGIN
+                       BalanceAvailable := Balance > 0;
+                     END;
+
+    OnQueryClosePage=BEGIN
+                       IF Name = '' THEN
+                         EXIT(CONFIRM(Text002,FALSE));
+                     END;
+
+    ActionList=ACTIONS
+    {
+      { 1900000003;0 ;ActionContainer;
+                      ActionContainerType=RelatedInformation }
+      { 20      ;1   ;ActionGroup;
+                      CaptionML=ENU=&Customer;
+                      Image=Customer }
+      { 21      ;2   ;Action    ;
+                      ShortCutKey=Shift+Ctrl+L;
+                      CaptionML=ENU=Ledger E&ntries;
+                      RunObject=Page 25;
+                      RunPageView=SORTING(Customer No.);
+                      RunPageLink=Customer No.=FIELD(No.);
+                      Promoted=Yes;
+                      Image=CustomerLedger;
+                      PromotedCategory=Category4 }
+      { 23      ;2   ;Action    ;
+                      CaptionML=ENU=Co&mments;
+                      RunObject=Page 124;
+                      RunPageLink=Table Name=CONST(Customer),
+                                  No.=FIELD(No.);
+                      Image=ViewComments;
+                      PromotedCategory=Category4 }
+      { 1900000004;0 ;ActionContainer;
+                      ActionContainerType=ActionItems }
+      { 22      ;1   ;Action    ;
+                      Name=CalculateBalance;
+                      CaptionML=ENU=Calculate Balance;
+                      ToolTipML=ENU=Calculate the total balance.;
+                      Promoted=Yes;
+                      PromotedIsBig=Yes;
+                      Image=Calculate;
+                      PromotedCategory=Process;
+                      OnAction=VAR
+                                 Total@1000 : Decimal;
+                               BEGIN
+                                 Total := GetTotalBalance;
+                                 MESSAGE(Text001,Total);
+                               END;
+                                }
+    }
+  }
+  CONTROLS
+  {
+    { 1900000001;0;Container;
+                ContainerType=ContentArea }
+
+    { 1   ;1   ;Group     ;
+                CaptionML=ENU=General;
+                GroupType=Group }
+
+    { 2   ;2   ;Field     ;
+                SourceExpr="No.";
+                Importance=Promoted;
+                OnAssistEdit=BEGIN
+                               IF AssistEdit(xRec) THEN
+                                 CurrPage.UPDATE;
+                             END;
+                              }
+
+    { 3   ;2   ;Field     ;
+                SourceExpr=Name;
+                ShowMandatory=TRUE }
+
+    { 4   ;2   ;Field     ;
+                SourceExpr="Customer Type" }
+
+    { 5   ;2   ;Field     ;
+                SourceExpr="Salesperson Code";
+                OnValidate=BEGIN
+                             SalespersonCodeOnAfterValidate;
+                           END;
+                            }
+
+    { 6   ;2   ;Field     ;
+                SourceExpr=Balance;
+                Visible=BalanceAvailable;
+                OnDrillDown=VAR
+                              DtldCustLedgEntry@1000 : Record 379;
+                            BEGIN
+                              DtldCustLedgEntry.SETRANGE("Customer No.","No.");
+                              PAGE.RUN(0,DtldCustLedgEntry);
+                            END;
+                             }
+
+    { 7   ;2   ;Field     ;
+                CaptionML=ENU=Days Since Last Modified;
+                SourceExpr=DaysSinceModified;
+                Editable=FALSE }
+
+    { 8   ;2   ;Field     ;
+                SourceExpr="Ship-to Code";
+                OnLookup=VAR
+                           ShipTo@1000 : Record 222;
+                         BEGIN
+                           ShipTo.SETRANGE("Customer No.","No.");
+                           IF PAGE.RUNMODAL(0,ShipTo) = ACTION::LookupOK THEN BEGIN
+                             Text := ShipTo.Code;
+                             EXIT(TRUE);
+                           END;
+                         END;
+                          }
+
+    { 9   ;1   ;Group     ;
+                CaptionML=ENU=Invoicing;
+                GroupType=Group }
+
+    { 10  ;2   ;Field     ;
+                SourceExpr="Credit Limit (LCY)";
+                Importance=Additional }
+
+    { 11  ;2   ;Field     ;
+                SourceExpr=Name;
+                CaptionML=ENU=Name (repeated) }
+
+    { 1900000007;0;Container;
+                ContainerType=FactBoxArea }
+
+    { 1900000008;1;Part   ;
+                SubPageLink=No.=FIELD(No.);
+                PagePartID=Page9082;
+                Visible=TRUE;
+                PartType=Page }
+
+    { 1900383207;1;Part   ;
+                Visible=FALSE;
+                PartType=System;
+                SystemPartID=RecordLinks }
+
+    { 1905767507;1;Part   ;
+                Visible=TRUE;
+                PartType=System;
+                SystemPartID=Notes }
+
+  }
+  CODE
+  {
+    VAR
+      BalanceAvailable@1000 : Boolean INDATASET;
+      Text001@1001 : TextConst 'ENU=Total balance: %1';
+      Text002@1002 : TextConst 'ENU=The customer has no name. Close anyway?';
+
+    LOCAL PROCEDURE SetControlVisibility@1();
+    BEGIN
+      BalanceAvailable := "No." <> '';
+    END;
+
+    LOCAL PROCEDURE SalespersonCodeOnAfterValidate@2();
+    BEGIN
+      CurrPage.UPDATE(TRUE);
+    END;
+
+    LOCAL PROCEDURE DaysSinceModified@3() : Integer;
+    BEGIN
+      IF "Last Date Modified" = 0D THEN
+        EXIT(0);
+      EXIT(TODAY - "Last Date Modified");
+    END;
+
+    BEGIN
+    END.
+  }
+}
+
