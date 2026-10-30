@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+<resheader name="resmimetype"><value>text/microsoft-resx</value></resheader><resheader name="version"><value>1.3</value></resheader><resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader><resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader><data name="SecurityFilterValueMissing" xml:space="preserve"><value>Filter value missing</value></data>
+  <data name="SecurityFilterParseHeader" xml:space="preserve"><value>Cannot parse security filter for permission set {0} on Object {1} {2}, {3}</value></data>
+  <data name="NavAppsInvalidTableData" xml:space="preserve"><value>The specified data is not in the expected format for table data.</value></data>
+  <data name="DuplicatePermissionSetFound" xml:space="preserve"><value>Cannot import permission sets with ID {0} because permission sets must be unique.</value></data>
+  <data name="InvalidTranslationLineError" xml:space="preserve"><value>Invalid translation file line at '{0}:{1}' - '{2}'.</value></data>
+  <data name="XmlLoadError" xml:space="preserve"><value>Cannot load the {0} at the specified location, {1}, due to the following error: {2}</value></data>
+  <data name="InvalidTenantWebServiceName" xml:space="preserve"><value>The web service name '{0}' found in '{1}' is not valid.</value></data>
+  <data name="SecurityFilterMissingExpressionAfterSeparator" xml:space="preserve"><value>Filter expression separator ',' found but next filter expression is missing</value></data>
+  <data name="NavAppsCannotValidateTableData" xml:space="preserve"><value>Cannot validate table data file '{0}'.</value></data>
+  <data name="SecurityFilterObjectNameMissing" xml:space="preserve"><value>Target object name missing</value></data>
+  <data name="DuplicateTranslationLineError" xml:space="preserve"><value>Duplicate translation file entry at '{0}:{1}' - '{2}'.</value></data>
+  <data name="NoSourcesToVerify" xml:space="preserve"><value>{0} found no source files to verify</value></data>
+  </root>

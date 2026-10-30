@@ -1,0 +1,24 @@
+using System;
+using System.Diagnostics.CodeAnalysis;
+
+namespace Microsoft.Dynamics.Nav.CodeAnalysis.Symbols;
+
+[SuppressMessage("Microsoft.Maintainability", "CA1501: AvoidExcessiveInheritance")]
+[SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
+internal sealed class CodeunitInstanceClassTypeSymbol : LanguageClassTypeSymbol
+{
+	private static readonly Lazy<CodeunitInstanceClassTypeSymbol> instance = new Lazy<CodeunitInstanceClassTypeSymbol>(() => new CodeunitInstanceClassTypeSymbol("CodeunitInstance", isAutoWith: false, (Symbol containingSymbol) => new MethodSymbol[1]
+	{
+		new BuiltInMethodTypeSymbol(containingSymbol, "Run", SymbolCompilationScope.DefinedByOwner, isStatic: false, null, null, isProperty: false, addDataError: true, addThis: false, isLocal: false, isObsolete: false, NavCorLib.BooleanType, returnValueIsOptional: true, returnValueTypeFromFirstArgument: false, (Symbol method) => new ParameterSymbol[1]
+		{
+			new BuiltInParameterSymbol(method, NavCorLib.TableType, "Record", 0, isVar: true)
+		})
+	}), isThreadSafe: true);
+
+	internal static CodeunitInstanceClassTypeSymbol Instance => instance.Value;
+
+	private CodeunitInstanceClassTypeSymbol(string name, bool isAutoWith, Func<Symbol, Symbol[]> getMethods)
+		: base(name, isAutoWith, TypeCategoryKind.ApplicationObject, NavTypeKind.Codeunit, SymbolCompilationScope.Personalization, getMethods)
+	{
+	}
+}

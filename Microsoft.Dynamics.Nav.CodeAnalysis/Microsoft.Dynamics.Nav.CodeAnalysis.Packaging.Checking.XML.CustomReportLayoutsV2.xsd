@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="CustomReportLayoutsV2" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!--This schema is explicitly 'incorrect' to force a transform/upgrade of the V1 layout documents into V2-->
+  <xs:element name="FORCEDUPGRADE" type="xs:string"/>
+</xs:schema>

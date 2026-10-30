@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>System.Reflection.Metadata</AssemblyName>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <TargetFramework>net40</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>14.0</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace />
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Reference Include="System.Resources.ResourceManager" />
+    <Reference Include="System.Runtime.InteropServices" />
+    <Reference Include="System.Reflection.Primitives" />
+    <Reference Include="System.Collections" />
+    <Reference Include="System.IO" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Text.Encoding" />
+    <Reference Include="System.Reflection" />
+    <Reference Include="System.Threading" />
+    <Reference Include="System.Text.Encoding.Extensions" />
+    <Reference Include="System.Reflection.Extensions" />
+    <ProjectReference Include="..\System.Collections.Immutable\System.Collections.Immutable.csproj" />
+  </ItemGroup>
+</Project>

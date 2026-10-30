@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+<resheader name="resmimetype"><value>text/microsoft-resx</value></resheader><resheader name="version"><value>1.3</value></resheader><resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader><resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader><data name="Table_Scope_Personalization" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceDefaultPage_Cassette" xml:space="preserve"><value /></data>
+  <data name="XmlPort_Report_TransactionType_Report" xml:space="preserve"><value /></data>
+  <data name="Page_PageType_StandardDialog" xml:space="preserve"><value /></data>
+  <data name="XmlPort_Report_TransactionType_Snapshot" xml:space="preserve"><value /></data>
+  <data name="PageAction_RunPageMode_Create" xml:space="preserve"><value /></data>
+  <data name="Codeunit_Subtype_Install" xml:space="preserve"><value /></data>
+  <data name="Codeunit_TestPermissions_Disabled" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceDefaultPage_LargeFormat" xml:space="preserve"><value /></data>
+  <data name="PageLabel_PageField_Style_AttentionAccent" xml:space="preserve"><value /></data>
+  <data name="PageAction_Scope_Page" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceLastPage_Custom8" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceLastPage_Custom9" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceLastPage_Custom2" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceLastPage_Custom3" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceLastPage_Custom1" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceLastPage_Custom6" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceLastPage_Custom7" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceLastPage_Custom4" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceLastPage_Custom5" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceLastPage_FormSource" xml:space="preserve"><value /></data>
+  <data name="XmlPort_Format_VariableText" xml:space="preserve"><value /></data>
+  <data name="Report_PreviewMode_PrintLayout" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceDefaultPage_Upper" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceDefaultPage_Lower" xml:space="preserve"><value /></data>
+  <data name="QueryDataItem_SqlJoinType_InnerJoin" xml:space="preserve"><value /></data>
+  <data name="Table_DataClassification_OrganizationIdentifiableInformation" xml:space="preserve"><value>(OII) Data that can be used to identify a tenant, generally config or usage data. This data is not linkable to a user and does not contain Customer content.</value></data>
+  <data name="Page_PageType_HeadlinePart" xml:space="preserve"><value /></data>
+  <data name="Query_ReadState_ReadExclusive" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceDefaultPage_AutomaticFeed" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceLastPage_SmallFormat" xml:space="preserve"><value /></data>
+  <data name="Report_DefaultLayout_RDLC" xml:space="preserve"><value /></data>
+  <data name="Report_DefaultLayout_Word" xml:space="preserve"><value /></data>
+  <data name="PageLabel_Importance_Standard" xml:space="preserve"><value /></data>
+  <data name="PageLabel_PageField_Style_Subordinate" xml:space="preserve"><value /></data>
+  <data name="Field_ExternalAccess_Read" xml:space="preserve"><value /></data>
+  <data name="Field_ExternalAccess_Full" xml:space="preserve"><value /></data>
+  <data name="Field_FieldClass_Normal" xml:space="preserve"><value /></data>
+  <data name="Page_Report_UsageCategory_ReportsAndAnalysis" xml:space="preserve"><value /></data>
+  <data name="Table_TableType_MicrosoftGraph" xml:space="preserve"><value /></data>
+  <data name="XmlPort_Format_FixedText" xml:space="preserve"><value /></data>
+  <data name="XmlPort_TextEncoding_UTF16" xml:space="preserve"><value /></data>
+  <data name="PageLabel_PageField_Style_Favorable" xml:space="preserve"><value /></data>
+  <data name="XmlPort_TextEncoding_MSDOS" xml:space="preserve"><value /></data>
+  <data name="PageLabel_Importance_Promoted" xml:space="preserve"><value /></data>
+  <data name="Table_Scope_Extension" xml:space="preserve"><value /></data>
+  <data name="Table_TableType_Exchange" xml:space="preserve"><value /></data>
+  <data name="Field_DataClassification_OrganizationIdentifiableInformation" xml:space="preserve"><value>(OII) Data that can be used to identify a tenant, generally config or usage data. This data is not linkable to a user and does not contain Customer content.</value></data>
+  <data name="PageAction_Scope_Repeater" xml:space="preserve"><value /></data>
+  <data name="Page_PageType_API" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceDefaultPage_SmallFormat" xml:space="preserve"><value /></data>
+  <data name="Codeunit_TestPermissions_Restrictive" xml:space="preserve"><value /></data>
+  <data name="QueryColumn_Method_Average" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceDefaultPage_Envelope" xml:space="preserve"><value /></data>
+  <data name="PageLabel_PageField_Style_Standard" xml:space="preserve"><value /></data>
+  <data name="Field_DataClassification_EndUserPseudonymousIdentifiers" xml:space="preserve"><value>(EUPI) An identifier created by Microsoft tied to the user of a Microsoft service. When EUPI is combined with other information, such as a mapping table, it identifies the end user. EUPI does not contain information uploaded or created by the customer (Customer content or EUII)</value></data>
+  <data name="Field_Table_Key_ObsoleteState_Removed" xml:space="preserve"><value /></data>
+  <data name="Codeunit_TestIsolation_Codeunit" xml:space="preserve"><value /></data>
+  <data name="XmlPortTextElement_XmlPortFieldElement_XmlPortTableElement_MinOccurs_Once" xml:space="preserve"><value /></data>
+  <data name="XmlPortTextElement_XmlPortFieldElement_XmlPortTableElement_MinOccurs_Zero" xml:space="preserve"><value /></data>
+  <data name="Field_FieldClass_FlowFilter" xml:space="preserve"><value /></data>
+  <data name="XmlPort_FormatEvaluate_Legacy" xml:space="preserve"><value /></data>
+  <data name="Codeunit_Subtype_Upgrade" xml:space="preserve"><value /></data>
+  <data name="Field_SqlDataType_BigInteger" xml:space="preserve"><value /></data>
+  <data name="Field_SqlDataType_Integer" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceLastPage_Upper" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceLastPage_Lower" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceFirstPage_FormSource" xml:space="preserve"><value /></data>
+  <data name="Page_PageType_ListPlus" xml:space="preserve"><value /></data>
+  <data name="Page_PageType_ListPart" xml:space="preserve"><value /></data>
+  <data name="QueryDataItem_SqlJoinType_LeftOuterJoin" xml:space="preserve"><value /></data>
+  <data name="XmlPortFieldAttribute_XmlPortFieldElement_FieldValidate_Yes" xml:space="preserve"><value /></data>
+  <data name="Table_DataClassification_SystemMetadata" xml:space="preserve"><value>Data generated while running the service or program that is not linkable to a user or tenant.</value></data>
+  <data name="Report_PaperSourceDefaultPage_Manual" xml:space="preserve"><value /></data>
+  <data name="Codeunit_Subtype_Test" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceDefaultPage_Middle" xml:space="preserve"><value /></data>
+  <data name="Field_PageField_BlankNumbers_DontBlank" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceFirstPage_Envelope" xml:space="preserve"><value /></data>
+  <data name="PagePart_PageSystemPart_PageChartPart_UpdatePropagation_Both" xml:space="preserve"><value>An update action will update both the main page and the subpage</value></data>
+  <data name="XmlPort_Direction_Export" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceLastPage_LargeCapacity" xml:space="preserve"><value /></data>
+  <data name="XmlPort_Encoding_UTF16" xml:space="preserve"><value /></data>
+  <data name="PageLabel_PageField_Style_Strong" xml:space="preserve"><value /></data>
+  <data name="Table_CompressionType_Unspecified" xml:space="preserve"><value>Use the compression type that is specified externally on the table, for example, in SQL Server.</value></data>
+  <data name="Codeunit_Subtype_Normal" xml:space="preserve"><value /></data>
+  <data name="Page_PageType_CardPart" xml:space="preserve"><value /></data>
+  <data name="XmlPort_Direction_Import" xml:space="preserve"><value /></data>
+  <data name="Page_PageType_NavigatePage" xml:space="preserve"><value /></data>
+  <data name="Field_SqlDataType_Varchar" xml:space="preserve"><value /></data>
+  <data name="Field_SqlDataType_Variant" xml:space="preserve"><value /></data>
+  <data name="PageField_Importance_Additional" xml:space="preserve"><value>Hides the field by default. On a FastTab, to show the field, a user can choose **Show more** to display the field.</value></data>
+  <data name="Field_FieldClass_FlowField" xml:space="preserve"><value /></data>
+  <data name="PageGroup_GridLayout_Rows" xml:space="preserve"><value /></data>
+  <data name="PageGroup_CuegroupLayout_Wide" xml:space="preserve"><value /></data>
+  <data name="Table_DataClassification_EndUserPseudonymousIdentifiers" xml:space="preserve"><value>(EUPI) An identifier created by Microsoft tied to the user of a Microsoft service. When EUPI is combined with other information, such as a mapping table, it identifies the end user. EUPI does not contain information uploaded or created by the customer (Customer content or EUII)</value></data>
+  <data name="PageLabel_PageField_Style_StandardAccent" xml:space="preserve"><value /></data>
+  <data name="Codeunit_EventSubscriberInstance_Manual" xml:space="preserve"><value /></data>
+  <data name="XmlPortFieldAttribute_XmlPortTextAttribute_Occurrence_Optional" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceLastPage_AutomaticFeed" xml:space="preserve"><value /></data>
+  <data name="Field_DataClassification_EndUserIdentifiableInformation" xml:space="preserve"><value>(EUII) Data that identifies or could be used to identify the user of a Microsoft service. EUII does not contain Customer content.</value></data>
+  <data name="Field_DataClassification_ToBeClassified" xml:space="preserve"><value>Content that has not yet been given a classification. This is the initial value when table or field is created.</value></data>
+  <data name="Page_PageType_XmlPort" xml:space="preserve"><value /></data>
+  <data name="Page_PageType_ReportPreview" xml:space="preserve"><value /></data>
+  <data name="Field_PageField_ExtendedDatatype_PhoneNo" xml:space="preserve"><value /></data>
+  <data name="XmlPortTextElement_XmlPortFieldElement_XmlPortTableElement_MaxOccurs_Unbounded" xml:space="preserve"><value /></data>
+  <data name="XmlPort_Report_TransactionType_UpdateNoLocks" xml:space="preserve"><value /></data>
+  <data name="Page_PageType_ReportProcessingOnly" xml:space="preserve"><value /></data>
+  <data name="PageField_Importance_Standard" xml:space="preserve"><value>Displays the field on the page by default.</value></data>
+  <data name="Codeunit_TestPermissions_InheritFromTestCodeunit" xml:space="preserve"><value /></data>
+  <data name="Page_PageType_Worksheet" xml:space="preserve"><value /></data>
+  <data name="PageAction_Gesture_LeftSwipe" xml:space="preserve"><value /></data>
+  <data name="Field_PageField_ExtendedDatatype_None" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceLastPage_ManualFeed" xml:space="preserve"><value /></data>
+  <data name="XmlPort_Direction_Both" xml:space="preserve"><value /></data>
+  <data name="PageAction_PromotedCategory_New" xml:space="preserve"><value /></data>
+  <data name="XmlPort_TextEncoding_WINDOWS" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceFirstPage_Custom13" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceFirstPage_Custom12" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceFirstPage_Custom11" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceFirstPage_Custom10" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceFirstPage_Custom16" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceFirstPage_Custom15" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceFirstPage_Custom14" xml:space="preserve"><value /></data>
+  <data name="Query_QueryType_API" xml:space="preserve"><value /></data>
+  <data name="QueryColumn_Method_Year" xml:space="preserve"><value /></data>
+  <data name="Field_ExternalAccess_Modify" xml:space="preserve"><value /></data>
+  <data name="Page_Report_UsageCategory_None" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceFirstPage_AutomaticFeed" xml:space="preserve"><value /></data>
+  <data name="QueryDataItem_SqlJoinType_FullOuterJoin" xml:space="preserve"><value /></data>
+  <data name="Report_PreviewMode_Normal" xml:space="preserve"><value /></data>
+  <data name="PageGroup_GridLayout_Columns" xml:space="preserve"><value /></data>
+  <data name="XmlPortTextElement_XmlPortFieldElement_XmlPortTableElement_MaxOccurs_Once" xml:space="preserve"><value /></data>
+  <data name="Field_PageField_ExtendedDatatype_EMail" xml:space="preserve"><value /></data>
+  <data name="QueryColumn_Method_Count" xml:space="preserve"><value /></data>
+  <data name="QueryColumn_Method_Month" xml:space="preserve"><value /></data>
+  <data name="Field_PageField_ExtendedDatatype_Ratio" xml:space="preserve"><value /></data>
+  <data name="PageAction_Gesture_ContextMenu" xml:space="preserve"><value /></data>
+  <data name="PageLabel_PageField_Style_StrongAccent" xml:space="preserve"><value /></data>
+  <data name="Field_ExternalAccess_Insert" xml:space="preserve"><value /></data>
+  <data name="Field_DataClassification_CustomerContent" xml:space="preserve"><value>Content directly provided/created by admins and users. CustomerContent is the default value.</value></data>
+  <data name="XmlPort_Format_Xml" xml:space="preserve"><value /></data>
+  <data name="Table_Scope_Internal" xml:space="preserve"><value /></data>
+  <data name="Table_DataClassification_ToBeClassified" xml:space="preserve"><value>Content that has not yet been given a classification. This is the initial value when table or field is created.</value></data>
+  <data name="Report_PaperSourceLastPage_Manual" xml:space="preserve"><value /></data>
+  <data name="QueryColumn_Method_Day" xml:space="preserve"><value /></data>
+  <data name="QueryColumn_Method_Min" xml:space="preserve"><value /></data>
+  <data name="QueryColumn_Method_Max" xml:space="preserve"><value /></data>
+  <data name="QueryColumn_Method_Sum" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceLastPage_Middle" xml:space="preserve"><value /></data>
+  <data name="PageAction_Gesture_RightSwipe" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceFirstPage_Lower" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceFirstPage_Upper" xml:space="preserve"><value /></data>
+  <data name="PageLabel_PageField_Style_Attention" xml:space="preserve"><value /></data>
+  <data name="Table_DataClassification_CustomerContent" xml:space="preserve"><value>Content directly provided/created by admins and users. CustomerContent is the default value.</value></data>
+  <data name="Field_PageField_BlankNumbers_BlankZeroAndPos" xml:space="preserve"><value /></data>
+  <data name="PageLabel_PageField_Style_None" xml:space="preserve"><value /></data>
+  <data name="PageLabel_PageField_Style_Ambiguous" xml:space="preserve"><value /></data>
+  <data name="Table_CompressionType_Row" xml:space="preserve"><value>Compress the table on a row-level.</value></data>
+  <data name="Report_PaperSourceFirstPage_TractorFeed" xml:space="preserve"><value /></data>
+  <data name="Table_TableType_Normal" xml:space="preserve"><value /></data>
+  <data name="Page_Report_UsageCategory_Documents" xml:space="preserve"><value /></data>
+  <data name="Table_TableType_CRM" xml:space="preserve"><value /></data>
+  <data name="Codeunit_Subtype_TestRunner" xml:space="preserve"><value /></data>
+  <data name="PageLabel_PageField_Style_Unfavorable" xml:space="preserve"><value /></data>
+  <data name="XmlPortFieldAttribute_XmlPortTextAttribute_Occurrence_Required" xml:space="preserve"><value /></data>
+  <data name="Field_PageField_ExtendedDatatype_Masked" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceLastPage_Custom13" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceLastPage_Custom12" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceLastPage_Custom11" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceLastPage_Custom10" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceLastPage_Custom16" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceLastPage_Custom15" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceLastPage_Custom14" xml:space="preserve"><value /></data>
+  <data name="PagePart_PageSystemPart_PageChartPart_UpdatePropagation_SubPart" xml:space="preserve"><value>An update action will update the subpage only</value></data>
+  <data name="Report_PdfFontEmbedding_Yes" xml:space="preserve"><value /></data>
+  <data name="Page_PageType_RoleCenter" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceDefaultPage_Custom12" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceDefaultPage_Custom13" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceDefaultPage_Custom10" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceDefaultPage_Custom11" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceDefaultPage_Custom16" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceDefaultPage_Custom14" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceDefaultPage_Custom15" xml:space="preserve"><value /></data>
+  <data name="PageLabel_Importance_Additional" xml:space="preserve"><value /></data>
+  <data name="Page_PageType_ConfirmationDialog" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceFirstPage_LargeCapacity" xml:space="preserve"><value /></data>
+  <data name="Field_PageField_ExtendedDatatype_Person" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceDefaultPage_TractorFeed" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceFirstPage_LargeFormat" xml:space="preserve"><value /></data>
+  <data name="Query_QueryType_Normal" xml:space="preserve"><value /></data>
+  <data name="Page_Report_UsageCategory_Administration" xml:space="preserve"><value /></data>
+  <data name="PageField_Importance_Promoted" xml:space="preserve"><value>Displays the field on the page and also in the header of the FastTab when the FastTab is collapsed.</value></data>
+  <data name="Query_ReadState_ReadShared" xml:space="preserve"><value /></data>
+  <data name="Field_PageField_ExtendedDatatype_URL" xml:space="preserve"><value /></data>
+  <data name="XmlPort_FormatEvaluate_Xml" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceLastPage_Envelope" xml:space="preserve"><value /></data>
+  <data name="Table_CompressionType_None" xml:space="preserve"><value>Do not use compression on the table.</value></data>
+  <data name="Table_CompressionType_Page" xml:space="preserve"><value>Compress the table on a page-level. This includes row, prefix, and dictionary compression.</value></data>
+  <data name="Field_DataClassification_SystemMetadata" xml:space="preserve"><value>Data generated while running the service or program that is not linkable to a user or tenant.</value></data>
+  <data name="PageAction_PromotedCategory_Category20" xml:space="preserve"><value /></data>
+  <data name="PageAction_PromotedCategory_Category13" xml:space="preserve"><value /></data>
+  <data name="PageAction_PromotedCategory_Category12" xml:space="preserve"><value /></data>
+  <data name="PageAction_PromotedCategory_Category11" xml:space="preserve"><value /></data>
+  <data name="PageAction_PromotedCategory_Category10" xml:space="preserve"><value /></data>
+  <data name="PageAction_PromotedCategory_Category17" xml:space="preserve"><value /></data>
+  <data name="PageAction_PromotedCategory_Category16" xml:space="preserve"><value /></data>
+  <data name="PageAction_PromotedCategory_Category15" xml:space="preserve"><value /></data>
+  <data name="PageAction_PromotedCategory_Category14" xml:space="preserve"><value /></data>
+  <data name="PageAction_PromotedCategory_Category19" xml:space="preserve"><value /></data>
+  <data name="PageAction_PromotedCategory_Category18" xml:space="preserve"><value /></data>
+  <data name="Page_Report_UsageCategory_History" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceFirstPage_Cassette" xml:space="preserve"><value /></data>
+  <data name="Codeunit_TestIsolation_Disabled" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceFirstPage_ManualFeed" xml:space="preserve"><value /></data>
+  <data name="Field_Table_Key_ObsoleteState_No" xml:space="preserve"><value>Not obsolete. This is the normal/default setting.</value></data>
+  <data name="Report_PdfFontEmbedding_No" xml:space="preserve"><value /></data>
+  <data name="Field_Table_Key_ObsoleteState_Pending" xml:space="preserve"><value /></data>
+  <data name="Field_Subtype_Json" xml:space="preserve"><value /></data>
+  <data name="Field_Subtype_Memo" xml:space="preserve"><value /></data>
+  <data name="XmlPortFieldAttribute_XmlPortFieldElement_FieldValidate_Undefined" xml:space="preserve"><value /></data>
+  <data name="Field_PageField_BlankNumbers_BlankZero" xml:space="preserve"><value /></data>
+  <data name="XmlPort_TextEncoding_UTF8" xml:space="preserve"><value /></data>
+  <data name="Field_Subtype_Bitmap" xml:space="preserve"><value /></data>
+  <data name="PageLabel_Importance_Optional" xml:space="preserve"><value /></data>
+  <data name="Page_Report_UsageCategory_Tasks" xml:space="preserve"><value /></data>
+  <data name="PageAction_PromotedCategory_Process" xml:space="preserve"><value /></data>
+  <data name="Page_Report_UsageCategory_Lists" xml:space="preserve"><value /></data>
+  <data name="Field_DataClassification_AccountData" xml:space="preserve"><value>Customer billing information and payment instrument information, including administrator contact information, such as tenant administrator’s name, address, or phone number.</value></data>
+  <data name="Report_PaperSourceDefaultPage_Custom9" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceDefaultPage_Custom8" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceDefaultPage_Custom3" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceDefaultPage_Custom2" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceDefaultPage_Custom1" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceDefaultPage_Custom7" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceDefaultPage_Custom6" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceDefaultPage_Custom5" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceDefaultPage_Custom4" xml:space="preserve"><value /></data>
+  <data name="XmlPortTextAttribute_XmlPortTextElement_TextType_BigText" xml:space="preserve"><value /></data>
+  <data name="PageAction_Gesture_None" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceFirstPage_SmallFormat" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceLastPage_LargeFormat" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceDefaultPage_ManualFeed" xml:space="preserve"><value /></data>
+  <data name="Query_ReadState_ReadUncommitted" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceDefaultPage_LargeCapacity" xml:space="preserve"><value /></data>
+  <data name="XmlPort_Encoding_ISO88592" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceFirstPage_Manual" xml:space="preserve"><value /></data>
+  <data name="Table_DataClassification_AccountData" xml:space="preserve"><value>Customer billing information and payment instrument information, including administrator contact information, such as tenant administrator’s name, address, or phone number.</value></data>
+  <data name="Report_PaperSourceFirstPage_Middle" xml:space="preserve"><value /></data>
+  <data name="XmlPort_Report_TransactionType_Browse" xml:space="preserve"><value /></data>
+  <data name="Field_PageField_BlankNumbers_BlankNegAndZero" xml:space="preserve"><value /></data>
+  <data name="Table_TableType_ExternalSQL" xml:space="preserve"><value /></data>
+  <data name="Field_Subtype_UserDefined" xml:space="preserve"><value /></data>
+  <data name="Field_PageField_BlankNumbers_BlankPos" xml:space="preserve"><value /></data>
+  <data name="Field_PageField_BlankNumbers_BlankNeg" xml:space="preserve"><value /></data>
+  <data name="QueryDataItem_SqlJoinType_CrossJoin" xml:space="preserve"><value /></data>
+  <data name="PageAction_RunPageMode_View" xml:space="preserve"><value /></data>
+  <data name="PageAction_RunPageMode_Edit" xml:space="preserve"><value /></data>
+  <data name="Page_PageType_List" xml:space="preserve"><value /></data>
+  <data name="Page_PageType_Card" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceLastPage_TractorFeed" xml:space="preserve"><value /></data>
+  <data name="Page_PageType_Document" xml:space="preserve"><value /></data>
+  <data name="PageAction_PromotedCategory_Category6" xml:space="preserve"><value /></data>
+  <data name="PageAction_PromotedCategory_Category7" xml:space="preserve"><value /></data>
+  <data name="PageAction_PromotedCategory_Category4" xml:space="preserve"><value /></data>
+  <data name="PageAction_PromotedCategory_Category5" xml:space="preserve"><value /></data>
+  <data name="PageAction_PromotedCategory_Category8" xml:space="preserve"><value /></data>
+  <data name="PageAction_PromotedCategory_Category9" xml:space="preserve"><value /></data>
+  <data name="Report_PdfFontEmbedding_Default" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceDefaultPage_FormSource" xml:space="preserve"><value /></data>
+  <data name="Table_DataClassification_EndUserIdentifiableInformation" xml:space="preserve"><value>(EUII) Data that identifies or could be used to identify the user of a Microsoft service. EUII does not contain Customer content.</value></data>
+  <data name="Codeunit_EventSubscriberInstance_StaticAutomatic" xml:space="preserve"><value /></data>
+  <data name="PageField_Importance_Optional" xml:space="preserve"><value>This property value is deprecated.</value></data>
+  <data name="Codeunit_TestPermissions_NonRestrictive" xml:space="preserve"><value /></data>
+  <data name="Codeunit_TestIsolation_Function" xml:space="preserve"><value /></data>
+  <data name="XmlPortTextAttribute_XmlPortTextElement_TextType_Text" xml:space="preserve"><value /></data>
+  <data name="XmlPortFieldAttribute_XmlPortFieldElement_FieldValidate_No" xml:space="preserve"><value /></data>
+  <data name="XmlPort_Encoding_UTF8" xml:space="preserve"><value /></data>
+  <data name="XmlPort_XmlVersionNo_V10" xml:space="preserve"><value /></data>
+  <data name="XmlPort_XmlVersionNo_V11" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceFirstPage_Custom8" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceFirstPage_Custom9" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceFirstPage_Custom2" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceFirstPage_Custom3" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceFirstPage_Custom1" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceFirstPage_Custom6" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceFirstPage_Custom7" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceFirstPage_Custom4" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceFirstPage_Custom5" xml:space="preserve"><value /></data>
+  <data name="PageAction_PromotedCategory_Report" xml:space="preserve"><value /></data>
+  <data name="XmlPort_Report_TransactionType_Update" xml:space="preserve"><value /></data>
+  <data name="Report_PaperSourceLastPage_Cassette" xml:space="preserve"><value /></data>
+  <data name="QueryDataItem_SqlJoinType_RightOuterJoin" xml:space="preserve"><value /></data>
+  </root>

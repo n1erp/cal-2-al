@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>Microsoft.CodeAnalysis</AssemblyName>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <TargetFramework>netstandard1.3</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>14.0</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace />
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Microsoft.CodeAnalysis.Resources.default.win32manifest" />
+    <EmbeddedResource Include="Microsoft.CodeAnalysis.Resources.default.win32manifest" LogicalName="Microsoft.CodeAnalysis.Resources.default.win32manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Collections" />
+    <Reference Include="System.Globalization" />
+    <Reference Include="System.Reflection" />
+    <Reference Include="System.IO" />
+    <Reference Include="System.IO.FileSystem" />
+    <Reference Include="System.Collections.Concurrent" />
+    <Reference Include="System.Text.Encoding" />
+    <Reference Include="System.Linq" />
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.Security.Cryptography.Algorithms" />
+    <Reference Include="System.Threading" />
+    <Reference Include="System.ValueTuple" />
+    <Reference Include="System.Xml.XDocument" />
+    <Reference Include="System.Security.Cryptography.Primitives" />
+    <Reference Include="System.Runtime.InteropServices" />
+    <Reference Include="System.Reflection.Primitives" />
+    <Reference Include="System.Resources.ResourceManager" />
+    <Reference Include="System.IO.FileSystem.Primitives" />
+    <Reference Include="System.Xml.ReaderWriter" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Numerics" />
+    <Reference Include="System.Threading.Tasks.Extensions">
+      <HintPath>..\..\..\..\..\Program Files\dotnet\shared\Microsoft.NETCore.App\8.0.33\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.XPath.XDocument" />
+    <Reference Include="System.Reflection.Extensions" />
+    <Reference Include="System.Text.Encoding.CodePages">
+      <HintPath>..\..\..\..\..\Program Files\dotnet\shared\Microsoft.NETCore.App\8.0.33\System.Text.Encoding.CodePages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encoding.Extensions" />
+    <ProjectReference Include="..\System.Collections.Immutable\System.Collections.Immutable.csproj" />
+    <ProjectReference Include="..\System.Reflection.Metadata\System.Reflection.Metadata.csproj" />
+  </ItemGroup>
+</Project>

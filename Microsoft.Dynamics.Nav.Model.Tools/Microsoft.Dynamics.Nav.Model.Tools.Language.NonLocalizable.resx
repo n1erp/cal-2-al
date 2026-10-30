@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+<resheader name="resmimetype"><value>text/microsoft-resx</value></resheader><resheader name="version"><value>1.3</value></resheader><resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader><resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader><data name="UnknownLanguageTargetObject" xml:space="preserve"><value>Application Object not found: {0} {1}.</value></data>
+  <data name="ChangeIsNotAllowed" xml:space="preserve"><value>the change is not allowed</value></data>
+  <data name="RemovingLanguages" xml:space="preserve"><value>Removing Languages</value></data>
+  <data name="OverwriteFile" xml:space="preserve"><value>Overwrite?</value></data>
+  <data name="ConflictOriginal" xml:space="preserve"><value>ConflictOriginal</value></data>
+  <data name="WriteFiles" xml:space="preserve"><value>Writing Files</value></data>
+  <data name="UpdateObjects" xml:space="preserve"><value>Updating Objects</value></data>
+  <data name="CouldNotGetPropertyValue" xml:space="preserve"><value>[could not get property value: {0} for {1}]</value></data>
+  <data name="ChangedLabel" xml:space="preserve"><value>Changed</value></data>
+  <data name="MergeSummaryTemplate" xml:space="preserve"><value>Summary: 
+  Merge operation processed {0} application object(s) with a total of {1} individual change(s). {2:0.0}% of individual modifications were automatically merged.
+
+Details:
+  Processed {0} application object(s):
+  
+    Merged    {3,5} objects – with changes in MODIFIED that were successfully merged with any changes from TARGET into RESULT.
+    Conflict  {4,5} objects – with changes in both MODIFIED and TARGET that could only be merged partially. 
+                              Partially merged objects and corresponding .CONFLICT files are added to RESULT.
+                              This also includes objects that are deleted in MODIFIED/TARGET and changed in TARGET/MODIFIED.
+    Inserted  {5,5} objects – in MODIFIED that do not exist in TARGET and are inserted into RESULT.
+    Deleted   {6,5} objects – that exist in ORIGINAL, but do not exist in MODIFIED and are unchanged in TARGET.
+    Unchanged {7,5} objects – in TARGET which are not changed in MODIFIED and are copied from TARGET to RESULT.
+                              This also include objects deleted in both MODIFIED and TARGET and objects unchanged in MODIFIED and deleted in TARGET.
+    Failed    {8,5} objects – that could not be imported, such as an object that is not valid or that contains 
+                              unsupported features.
+                           
+  Processed {1} individual changes:
+
+    Conflict  {9,5} changes
+    Merged    {2:0.0}% of all changes
+
+To see detailed explanation of these, type: "get-help Merge-NAVApplicationObject -detailed".</value></data>
+  <data name="ReadError" xml:space="preserve"><value>{0}({1}, {2}): error: {3}</value></data>
+  <data name="ReadFiles" xml:space="preserve"><value>Reading Files</value></data>
+  <data name="CheckObjectsOnlyApplicationObjects" xml:space="preserve"><value>The object(s) read from '{0}' can only contain application objects.</value></data>
+  <data name="PctMergedLabel" xml:space="preserve"><value>% Merged</value></data>
+  <data name="MergedLabel" xml:space="preserve"><value>Merged</value></data>
+  <data name="InvalidLanguageId" xml:space="preserve"><value>{0} is not a valid LanguageId.</value></data>
+  <data name="ProcessLanguage" xml:space="preserve"><value>Processing Languages</value></data>
+  <data name="ConflictTarget" xml:space="preserve"><value>ConflictTarget</value></data>
+  <data name="SourceParameterText" xml:space="preserve"><value>Source</value></data>
+  <data name="WriteFile" xml:space="preserve"><value>Writing File</value></data>
+  <data name="ExceptionOnEvaluation" xml:space="preserve"><value>Exception during evaluation of {0} : {1}</value></data>
+  <data name="TestingLanguages" xml:space="preserve"><value>Testing Languages</value></data>
+  <data name="ModifiedParameterText" xml:space="preserve"><value>Modified</value></data>
+  <data name="TargetParameterText" xml:space="preserve"><value>Target</value></data>
+  <data name="CouldNotParseChangeType" xml:space="preserve"><value>Could not parse change type "{0}" for {1}.</value></data>
+  <data name="OriginalParameterText" xml:space="preserve"><value>Original</value></data>
+  <data name="CouldNotRecognizeChange" xml:space="preserve"><value>Could not recognize {0} for {1}</value></data>
+  <data name="Changes" xml:space="preserve"><value>changes</value></data>
+  <data name="ApplyingLanguage" xml:space="preserve"><value>Applying Language</value></data>
+  <data name="DuplicateObjects" xml:space="preserve"><value>Duplicate objects ({0} {1}) found in {2}.</value></data>
+  <data name="Objects" xml:space="preserve"><value>objects</value></data>
+  <data name="ProcessedChangesMessage" xml:space="preserve"><value>Processed {0} changes:</value></data>
+  <data name="MissingTranslationsFound" xml:space="preserve"><value>{0} missing translations identified.</value></data>
+  <data name="InsertedLabel" xml:space="preserve"><value>Inserted</value></data>
+  <data name="ReadFile" xml:space="preserve"><value>Reading File</value></data>
+  <data name="ConflictModified" xml:space="preserve"><value>ConflictModified</value></data>
+  <data name="UpdatedLabel" xml:space="preserve"><value>Updated</value></data>
+  <data name="ErrorFileExists" xml:space="preserve"><value>The file {0} already exists. Use the Force parameter to overwrite.</value></data>
+  <data name="FailedLabel" xml:space="preserve"><value>Failed</value></data>
+  <data name="WhitelistValidatorIsNotInitialized" xml:space="preserve"><value>WhitelistValidator is not initialized.</value></data>
+  <data name="ErrorFileNameRequired" xml:space="preserve"><value>{0} is a directory. An output file name is required.</value></data>
+  <data name="CompareObjects" xml:space="preserve"><value>Comparing Objects</value></data>
+  <data name="InvalidLanguageKeyFormat" xml:space="preserve"><value>Invalid Language Key: {0}</value></data>
+  <data name="UnknownLanguageTarget" xml:space="preserve"><value>Translation target not found: {0}.</value></data>
+  <data name="ExtractingLanguages" xml:space="preserve"><value>Extracting Languages</value></data>
+  <data name="ConflictLabel" xml:space="preserve"><value>Conflict</value></data>
+  <data name="UpdateSummaryTemplate" xml:space="preserve"><value>Summary:
+  Completed the update. Processed {0} application object(s) with a total of {1} individual change(s). {2:0.0}% of the individual changes were automatically applied during the update.
+ 
+Details:
+  Processed {0} application object(s):
+  
+    Updated   {3,5} objects – with changes in DELTA that were successfully merged with any changes from TARGET into RESULT.
+    Conflict  {4,5} objects – with changes in both DELTA and TARGET that could only be partially updated. 
+                              The partially updated objects and the corresponding .CONFLICT files are added to RESULT.
+                              This also includes objects that are deleted in DELTA and changed in TARGET.
+    Inserted  {5,5} objects – that exist in DELTA that do not exist in TARGET and are inserted into RESULT.
+    Deleted   {6,5} objects – that are deleted in DELTA and exist in TARGET.
+    Unchanged {7,5} objects – that exist in TARGET, are not changed in DELTA, and are copied from TARGET to RESULT.
+    Failed    {8,5} objects – that could not be imported, such as an object that is not valid or that contains unsupported features.
+                           
+  Processed {1} changes:
+ 
+    Conflict  {9,5} changes
+    Updated   {2:0.0}% of all changes
+ 
+For a detailed explanation of the changes, type: "get-help Update-NAVApplicationObject -detailed".
+</value></data>
+  <data name="ProcessedMessage" xml:space="preserve"><value>Processed {0} objects:</value></data>
+  <data name="DeletedLabel" xml:space="preserve"><value>Deleted</value></data>
+  <data name="CannotFindPropertyForElement" xml:space="preserve"><value>Cannot find a {0} for {1}.</value></data>
+  <data name="IdenticalLabel" xml:space="preserve"><value>Identical</value></data>
+  </root>

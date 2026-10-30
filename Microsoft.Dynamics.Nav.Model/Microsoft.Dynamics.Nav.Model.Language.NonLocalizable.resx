@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+<resheader name="resmimetype"><value>text/microsoft-resx</value></resheader><resheader name="version"><value>1.3</value></resheader><resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader><resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader><data name="TxtImport_TokenUnexpected" xml:space="preserve"><value>{0} not expected.</value></data>
+  <data name="ModelChanges_UnknownOrUnsupportedProperty" xml:space="preserve"><value>A Property property with Name = {0} is not supported on ElementType = {1}</value></data>
+  <data name="TxtImport_InvalidPropertyOrTriggerName" xml:space="preserve"><value>{0} is not valid property for {1}.</value></data>
+  <data name="TxtImport_ReportLayoutExpected" xml:space="preserve"><value>Report layout expected.</value></data>
+  <data name="TxtImport_ObjectTypeExpected" xml:space="preserve"><value>Object Type expected.</value></data>
+  <data name="GenericElement_ValidSubElement" xml:space="preserve"><value>ElementType {0} is not a valid sub-element for ElementType {1}</value></data>
+  <data name="GenericElement_SubElementNotFound" xml:space="preserve"><value>SubElement {0} not found.</value></data>
+  <data name="GenericElement_InsertAfterNonSubElement" xml:space="preserve"><value>The "insertAfterElement" was not found.</value></data>
+  <data name="TxtImport_ElementContainerNotSupported" xml:space="preserve"><value>{0} is not supported in this version.</value></data>
+  <data name="TxtImport_ObjectTypeNotSupported" xml:space="preserve"><value>The Object Type {0} is not supported.</value></data>
+  <data name="ConflictHint_InsertAfterTargetNotFound" xml:space="preserve"><value>The element to insert after can't be found. The element is inserted at the end.</value></data>
+  <data name="ConflictHint_UnprocessedMoveSibling" xml:space="preserve"><value>The move operation can't be applied because one of sibling elements included in the move isn't found.</value></data>
+  <data name="TxtImport_ObsoleteTriggerName" xml:space="preserve"><value>'{0}' is an obsolete trigger for {1}. '{0}' has been skipped.</value></data>
+  <data name="UnimportableCode_Line1" xml:space="preserve"><value>The code has been merged but contained errors that could prevent import</value></data>
+  <data name="UnimportableCode_Line2" xml:space="preserve"><value>and the code has been put in comments. Use Shift+Ctrl+O to Uncomment</value></data>
+  <data name="ConflictHint_DeleteOfModifiedTarget" xml:space="preserve"><value>The element deleted in modified has been modified in target.</value></data>
+  <data name="ConflictHint_CodeIsMergedButIsOutCommented" xml:space="preserve"><value>Code is merged but is out-commented.</value></data>
+  <data name="TxtImport_TokenExpected" xml:space="preserve"><value>{0} expected.</value></data>
+  <data name="ConflictHint_PropertyInsertedInBothTargetAndModified" xml:space="preserve"><value>The property is inserted with different value in both Modified and Target.</value></data>
+  <data name="GenericElement_ParentIsAlreadyAssigned" xml:space="preserve"><value>Parent is already assigned. </value></data>
+  <data name="ConflictHint_PropertyChangedInBothTargetAndModified" xml:space="preserve"><value>The property is changed to a different value in both Modified and Target.</value></data>
+  <data name="ModelChanges_RdlChangeNotSupported" xml:space="preserve"><value>RDL changes is not supported.</value></data>
+  <data name="ModelChanges_AppObjsMustHaveSameTypeAndId" xml:space="preserve"><value>Application Objects must have same Type and Id.</value></data>
+  <data name="ConflictHint_Unprocessed" xml:space="preserve"><value>Unprocessed</value></data>
+  <data name="TxtImport_CodeOrEndCurlyExpected" xml:space="preserve"><value>{0}CODE or }} expected.</value></data>
+  <data name="ConflictHint_InlineCodeConflict" xml:space="preserve"><value>Code Conflict is inlined in source.</value></data>
+  <data name="GenericElement_ParentCanNotBeSetToNull" xml:space="preserve"><value>Parent can't be set null since element is in parents SubElements collection.</value></data>
+  <data name="TxtImport_SectionIsAlreadyImported" xml:space="preserve"><value>{0} can only be specified once.</value></data>
+  <data name="ModelChanges_CodeCompressionCheck" xml:space="preserve"><value>Code Compression check for ElementKey = {0} failed.</value></data>
+  <data name="ConflictHint_UnprocessedMove" xml:space="preserve"><value>The move operation can't be applied because the InsertAfter element isn't found.</value></data>
+  <data name="TxtImport_ObsoletePropertyName" xml:space="preserve"><value>'{0}' is an obsolete property for {1}. '{0}' has been skipped.</value></data>
+  <data name="ModelChanges_InvalidElementKeyList" xml:space="preserve"><value>Invalid ElementKey list. Value = {0}</value></data>
+  <data name="ConflictHint_DoubleInsertOfElement" xml:space="preserve"><value>The element has been inserted with different values in both Modified and Target</value></data>
+  </root>
