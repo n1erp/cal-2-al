@@ -1,6 +1,12 @@
 # Cal2AL
 
 [![CI](https://github.com/n1erp/cal-2-al/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/n1erp/cal-2-al/actions/workflows/ci.yml)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+[![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
+[![C#](https://img.shields.io/badge/C%23-CLI-239120?logo=csharp&logoColor=white)](https://learn.microsoft.com/dotnet/csharp/)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-0078D4)](#release-packages)
+[![Dynamics NAV](https://img.shields.io/badge/Dynamics-NAV%20C%2FAL-00A1F1)](https://learn.microsoft.com/dynamics-nav/)
+[![Business Central](https://img.shields.io/badge/Business%20Central-AL-00A1F1)](https://learn.microsoft.com/dynamics365/business-central/dev-itpro/developer/devenv-programming-in-al)
 
 Cal2AL converts Dynamics NAV C/AL objects exported as text (`.txt`, `.delta`) into AL for Business Central. It is a clean-room re-implementation of the behaviour of Microsoft's Txt2Al with these goals:
 
@@ -35,6 +41,23 @@ cal2al compare  --cal2al <out> --reference <txt2al-out>
 * **test** (Ubuntu and Windows): restore, Release build, all xUnit tests (results uploaded as `.trx`), and a smoke run of `cal2al convert` on `tests/Fixtures`.
 * **package** (pushes to `main` only, after the tests pass): self-contained single-file `cal2al` executables for `win-x64`, `linux-x64` and `osx-arm64`, downloadable from the run's artifacts for 30 days.
 
+## Release packages
+
+```powershell
+./scripts/Publish-Artifacts.ps1 -Version 0.1.0          # runs the tests, then packages
+./scripts/Publish-Artifacts.ps1 -Version 0.1.0 -SkipTests
+```
+
+Produces, in `artifacts/` (ignored by git):
+
+| File | Content |
+|---|---|
+| `cal2al-<version>-win-x64.zip` | `cal2al.exe`, `README.md`, `LICENSE` |
+| `cal2al-<version>-linux-x64.tar.gz` | `cal2al`, `README.md`, `LICENSE` |
+| `SHA256SUMS.txt` | checksums, verifiable with `sha256sum -c SHA256SUMS.txt` |
+
+The executables are self-contained single files (no .NET install needed). Upload the three files to a GitHub release, e.g. `gh release create v0.1.0 artifacts/* --title "Cal2AL 0.1.0"`. A Linux archive built on Windows has no executable bit: run `chmod +x cal2al` after extracting.
+
 ## Layout
 
 | Path | Content |
@@ -55,3 +78,7 @@ cal2al compare  --cal2al <out> --reference <txt2al-out>
 * [Supported features](docs/supported-features.md)
 * [Known limitations](docs/known-limitations.md)
 * [Command-line reference](docs/command-line-reference.md)
+
+## License
+
+Licensed under the [Apache License, Version 2.0](LICENSE).
