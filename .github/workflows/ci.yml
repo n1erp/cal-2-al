@@ -1,0 +1,102 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+
+jobs:
+  test:
+    name: Build and test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+          cache: true
+          cache-dependency-path: '**/*.csproj'
+
+      - name: Restore
+        run: dotnet restore Cal2AL.slnx
+
+      - name: Build
+        run: dotnet build Cal2AL.slnx --configuration Release --no-restore
+
+      - name: Test
+        run: >
+          dotnet test Cal2AL.slnx --configuration Release --no-build
+          --logger "trx;LogFileName=test-results.trx"
+          --logger "console;verbosity=normal"
+          --results-directory TestResults
+
+      - name: Smoke test the CLI on the fixtures
+        shell: bash
+        run: |
+          dotnet run --project cal2al/cal2al.csproj --configuration Release --no-build -- \
+            convert --source tests/Fixtures --target smoke-output --fail-on Never --no-color
+          test -f smoke-output/.cal2al/report.json
+          test -f smoke-output/classic/Cal2ALTestCustomer.Table.al
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.os }}
+          path: |
+            TestResults/**/*.trx
+            smoke-output/.cal2al/report.json
+          if-no-files-found: ignore
+
+  package:
+    name: Package cal2al (${{ matrix.rid }})
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        rid: [win-x64, linux-x64, osx-arm64]
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Publish single-file executable
+        run: >
+          dotnet publish cal2al/cal2al.csproj --configuration Release --runtime ${{ matrix.rid }}
+          --self-contained true -p:PublishSingleFile=true
+          --output publish/${{ matrix.rid }}
+
+      - name: Upload executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: cal2al-${{ matrix.rid }}
+          path: publish/${{ matrix.rid }}
+          retention-days: 30

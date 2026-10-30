@@ -1,5 +1,7 @@
 # Cal2AL
 
+[![CI](https://github.com/n1erp/cal-2-al/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/n1erp/cal-2-al/actions/workflows/ci.yml)
+
 Cal2AL converts Dynamics NAV C/AL objects exported as text (`.txt`, `.delta`) into AL for Business Central. It is a clean-room re-implementation of the behaviour of Microsoft's Txt2Al with these goals:
 
 * **No silent loss.** Code is carried over token for token and verified; anything that cannot be converted produces a diagnostic with object, member, location, construct, reason and suggested resolution, and the original text is saved as a migration artifact.
@@ -12,11 +14,11 @@ Requires the .NET 10 SDK.
 
 ```powershell
 dotnet build Cal2AL.slnx
-dotnet run --project cal2al -- convert --source C:\Exports --target C:\AL\MyApp
+dotnet run --project cal2al/cal2al.csproj -- convert --source C:\Exports --target C:\AL\MyApp
 dotnet test Cal2AL.slnx
 ```
 
-Publish a single executable: `dotnet publish cal2al -c Release -r win-x64 --self-contained -p:PublishSingleFile=true`.
+Publish a single executable: `dotnet publish cal2al/cal2al.csproj -c Release -r win-x64 --self-contained -p:PublishSingleFile=true`.
 
 ```text
 cal2al convert  -s <src> -t <out>     convert and write an AL project
@@ -25,6 +27,13 @@ cal2al validate -s <src>              parse-only check of the input
 cal2al inspect  -s <src> [-o Table:18 [--al]] | --diagnostics
 cal2al compare  --cal2al <out> --reference <txt2al-out>
 ```
+
+## Continuous integration
+
+`.github/workflows/ci.yml` runs on every push and pull request to `main`:
+
+* **test** (Ubuntu and Windows): restore, Release build, all xUnit tests (results uploaded as `.trx`), and a smoke run of `cal2al convert` on `tests/Fixtures`.
+* **package** (pushes to `main` only, after the tests pass): self-contained single-file `cal2al` executables for `win-x64`, `linux-x64` and `osx-arm64`, downloadable from the run's artifacts for 30 days.
 
 ## Layout
 

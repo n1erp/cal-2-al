@@ -1,0 +1,2 @@
+# Keep C/SIDE fixture exports byte-for-byte (code page 850, CRLF): the tests depend on their exact content.
+tests/Fixtures/** -text
